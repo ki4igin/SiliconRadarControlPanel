@@ -18,7 +18,16 @@ public class MainViewModel : TitledViewModel
         () => _communication.Connect()
     );
     #endregion
-    
+
+
+    #region Command ConnectAsync
+    private CommandAsync? _connectAsync;
+    public CommandAsync ConnectAsync => _connectAsync ??= new CommandAsync(
+        execute: (prog, ct) => _communication.ConnectAsync()
+    );
+    #endregion
+
+
     public MainViewModel()
     {
         _communication = new Communication();

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Serilog;
+using SiliconRadarControlPanel.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Ports;
@@ -18,8 +20,8 @@ public class Communication
         {
             BaudRate = 115200,
             DataBits = 8,
-            ReadTimeout = 1000,
-            WriteTimeout = 1000
+            ReadTimeout = 5000,
+            WriteTimeout = 5000
         };
     }
 
@@ -30,59 +32,63 @@ public class Communication
         foreach (var portName in portNames)
         {
             _serialPort.PortName = portName;
-            if(TryOpenSerialPort(_serialPort) is false)
+            if (_serialPort.TryOpen() is false)
                 continue;
 
-            Debug.WriteLine($"Попытка подключиться к плате через {portName}.....");
+            Log.Information("Попытка подключиться к плате через {portName}.....", portName);
             const string testCommand = "test";
             SendCommand(testCommand);
             byte[] rxBuffer = new byte[testCommand.Length];
-            TryReadSerialPort(_serialPort, rxBuffer, testCommand.Length);
+
+            if (_serialPort.TryRead(rxBuffer, 0, testCommand.Length) is false)
+                continue;
+
             string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
             if (string.Equals(testCommand, rxCommand))
             {
-                Debug.WriteLine($"Успех");
+                Log.Information("Успех");
                 return true;
             }
             _serialPort.Close();
-                
         }
-
         return false;
     }
 
-    private bool TryOpenSerialPort(SerialPort serialPort)
+    public async Task<bool> ConnectAsync()
     {
-        try
-        {
-            serialPort.Open();
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return false;
-        }
+        string[] portNames = SerialPort.GetPortNames();
 
-        return true;
-    }
-    
-    private bool TryReadSerialPort(SerialPort serialPort, byte[] buffer, int count)
-    {
-        int rxCount = 0;
-        try
+        foreach (var portName in portNames)
         {
-            rxCount = serialPort.Read(buffer, 0, count);
+            _serialPort.PortName = portName;
+            if (_serialPort.TryOpen() is false)
+                continue;
+
+            Log.Information("Попытка подключиться к плате через {portName}.....", portName);
+            const string testCommand = "test";
+            SendCommand(testCommand);
+            byte[] rxBuffer = new byte[testCommand.Length];
+
+            if (await _serialPort.TryReadAsync(rxBuffer, 0, testCommand.Length) is false)
+                continue;
+
+            string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
+            if (string.Equals(testCommand, rxCommand))
+            {
+                Log.Information("Успех");
+                return true;
+            }
+            _serialPort.Close();
         }
-        catch (TimeoutException)
-        {
-            return false;
-        }
-        return count == rxCount;
+        return false;
     }
+
+
 
     public void SendCommand(string command)
     {
         byte[] sendBytes = Encoding.ASCII.GetBytes(command);
         _serialPort.Write(sendBytes, 0, sendBytes.Length);
     }
-    
+
 }
