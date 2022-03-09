@@ -12,7 +12,8 @@
     </Window.DataContext>
     <DockPanel>
         <UniformGrid DockPanel.Dock="Top" HorizontalAlignment="Left">
-            <Button Content="Connect" Width="100" Command="{Binding Connect}"/>    
+            <Button Content="Connect" Width="100" Command="{Binding Connect}"/>
+            <Button Content="Connect2" Width="100" Command="{Binding ConnectAsync}"/>
         </UniformGrid>
         <Canvas/>
 
