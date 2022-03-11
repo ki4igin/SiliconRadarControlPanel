@@ -36,7 +36,7 @@ public class Grid32x2 : Grid
         }
     }
 
-    private UpdateBitsTextBloks()
+    private void UpdateBitsTextBloks()
     {
         
     }
