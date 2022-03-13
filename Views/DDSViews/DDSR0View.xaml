@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR0View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+             xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="800" d:Background="White">
+    <UserControl.DataContext>
+        <vm:DDSR0ViewModel/>
+    </UserControl.DataContext>
+    <GroupBox Header="{Binding Title}">
+        <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <uc:TextBlockRotate Grid.Column="0" Grid.Row="0" Text="RAMP ON"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <CheckBox Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding RampOn}"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="4" Text="MUXOUT CONTROL"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" ToolTip="Click to submit your information"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" ItemsSource="{Binding MuxControl}" SelectedIndex="{Binding MuxControlSelectIndex}"/>
+
+            <TextBlock Grid.Column="5" Grid.Row="0" Grid.ColumnSpan="12" Text="12-BIT INTEGER VALUE (INT)"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBox Grid.Column="5" Grid.Row="1" Grid.ColumnSpan="12" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding IntegerValue}"/>
+
+            <TextBlock Grid.Column="17" Grid.Row="0" Grid.ColumnSpan="12" Text="12-BIT MSB FRACTIONAL VALUE (FRAC)" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+            <TextBox Grid.Column="17" Grid.Row="1" Grid.ColumnSpan="12" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding FractionalValue}"/>
+
+            <TextBlock Grid.Column="29" Grid.Row="0" Grid.ColumnSpan="3" Text="CONTROL BITS" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+            <TextBlock Grid.Column="29" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding ControlBits}"/>
+        </uc:Grid32x2>
+    </GroupBox>
+</UserControl>

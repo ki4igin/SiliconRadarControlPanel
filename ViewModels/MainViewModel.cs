@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using SiliconRadarControlPanel.Services;
 using SiliconRadarControlPanel.Views;
+using SiliconRadarControlPanel.Views.DDSViews;
 
 namespace SiliconRadarControlPanel.ViewModels;
 

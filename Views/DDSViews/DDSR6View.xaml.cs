@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SiliconRadarControlPanel.Views
+namespace SiliconRadarControlPanel.Views.DDSViews
 {
     /// <summary>
-    /// Логика взаимодействия для DDSWindow.xaml
+    /// Логика взаимодействия для DDSR0View.xaml
     /// </summary>
-    public partial class DDSWindow : Window
+    public partial class DDSR6View : UserControl
     {
-        public DDSWindow()
+        public DDSR6View()
         {
             InitializeComponent();
         }
