@@ -1,31 +1,138 @@
-﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR4View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews" xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels" xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls" mc:Ignorable="d" d:DesignHeight="200" d:DesignWidth="800" d:Background="White">
+﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR4View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
+             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+             xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:Background="White"
+             Height="auto">
     <UserControl.DataContext>
         <vm:DDSR4ViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary Source="DDSStyles.xaml" />
+    </UserControl.Resources>
     <GroupBox Header="{Binding Title}">
         <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <uc:TextBlockRotate Grid.Column="0" Grid.Row="0" Text="LE SEL" />
-            <CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding LESel}" />
+            <uc:TextBlockRotate Grid.Column="0"
+                                Grid.Row="0"
+                                Text="LE SEL" />
+            <CheckBox Grid.Column="0"
+                      Grid.Row="1"
+                      IsChecked="{Binding LESel}" />
 
-            <TextBlock Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="5" Text="Σ-Δ MODULATOR MODE" />
-            <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding ΣΔModulatroMode}" SelectedIndex="{Binding ΣΔModulatroModeSelectIndex}" />
+            <TextBlock Grid.Column="1"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="5"
+                       Text="Σ-Δ&#xA;MODULATOR MODE" />
+            <ComboBox Grid.Column="1"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="5"
+                      ItemsSource="{Binding ΣΔModulatroMode}"
+                      SelectedIndex="{Binding ΣΔModulatroModeSelectIndex}" />
 
-            <TextBlock Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="5" Text="RAMP STATUS" />
-            <ComboBox Grid.Column="6" Grid.Row="1" Grid.ColumnSpan="5" ItemsSource="{Binding RampStatus}" SelectedIndex="{Binding RampStatusSelectIndex}" />
+            <TextBlock Grid.Column="6"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="5"
+                       Text="RAMP STATUS" />
+            <ComboBox Grid.Column="6"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="5"
+                      ItemsSource="{Binding RampStatus}"
+                      SelectedIndex="{Binding RampStatusSelectIndex}" />
 
-            <TextBlock Grid.Column="11" Grid.Row="0" Grid.ColumnSpan="2" Text="CLK DIV MODE" />
-            <ComboBox Grid.Column="11" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding ClkDivMode}" SelectedIndex="{Binding ClkDivModeSelectIndex}" />
+            <TextBlock Grid.Column="11"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       Text="CLK&#xA;DIV&#xA;MODE" />
+            <ComboBox Grid.Column="11"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding ClkDivMode}"
+                      SelectedIndex="{Binding ClkDivModeSelectIndex}" />
 
-            <TextBlock Grid.Column="13" Grid.Row="0" Grid.ColumnSpan="12" Text="12-BIT CLK2 DIVIDER VALUE" />
-            <TextBox Grid.Column="13" Grid.Row="1" Grid.ColumnSpan="12" Text="{Binding Clk2DividerValue}" />
+            <TextBlock Grid.Column="13"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="12"
+                       Text="12-BIT CLK2 DIVIDER VALUE" />
+            <TextBox Grid.Column="13"
+                     Grid.Row="1"
+                     Grid.ColumnSpan="12"
+                     Text="{Binding Clk2DividerValue}" />
 
-            <uc:TextBlockRotate Grid.Column="25" Grid.Row="0" Text="CLK DIV SEL" />
-            <ComboBox Grid.Column="25" Grid.Row="1" ItemsSource="{Binding ClkDivSel}" SelectedIndex="{Binding ClkDivSelSelectIndex}" />
+            <uc:TextBlockRotate Grid.Column="25"
+                                Grid.Row="0"
+                                Text="CLK&#xA;DIV SEL" 
+                                FontSize="10"/>
+            <ComboBox Grid.Column="25"
+                      Grid.Row="1"
+                      ItemsSource="{Binding ClkDivSel}"
+                      SelectedIndex="{Binding ClkDivSelSelectIndex}" />
 
-            <TextBlock Grid.Column="26" Grid.Row="0" Grid.ColumnSpan="3" Text="RESERVED" />
+            <TextBlock Grid.Column="26"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Text="RESERVED" />
 
-            <TextBlock Grid.Column="29" Grid.Row="0" Grid.ColumnSpan="3" Text="CONTROL BITS" />
-            <TextBlock Grid.Column="29" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding ControlBits}" />
+            <TextBlock Grid.Column="29"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Text="CONTROL&#xA;BITS" />
+            <TextBlock Grid.Column="29"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="3"
+                       Text="{Binding ControlBits}" />
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="1"
+                    Grid.ColumnSpan="5"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="6"
+                    Grid.ColumnSpan="5"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="11"
+                    Grid.ColumnSpan="2"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="13"
+                    Grid.ColumnSpan="12"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="25"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="26"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="29"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,1,1" />
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="32"
+                    Grid.Row="1"
+                    BorderBrush="Black"
+                    BorderThickness="0,1,0,1" />
         </uc:Grid32x2>
     </GroupBox>
 </UserControl>

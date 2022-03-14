@@ -122,7 +122,7 @@ public class DDSR7ViewModel : DDSRegisterViewModel
     public DDSR7ViewModel()
     {
         ControlBits = 6;
-        Title = "STEP REGISTER (R6)";
+        Title = "DELAY REGISTER (R7)";
     }
 
     protected override void UpdateRegisterValue()

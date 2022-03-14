@@ -1,56 +1,242 @@
-﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR3View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews" xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels" xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls" mc:Ignorable="d" d:DesignHeight="200" d:DesignWidth="800" d:Background="White">
+﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR3View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
+             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+             xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:Background="White"
+             Height="auto">
     <UserControl.DataContext>
         <vm:DDSR3ViewModel />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary Source="DDSStyles.xaml" />
+    </UserControl.Resources>
     <GroupBox Header="{Binding Title}">
         <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="7" Text="RESERVED" />
+            <TextBlock Grid.Column="0"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="7"
+                       Text="RESERVED" />
 
-            <TextBlock Grid.Column="7" Grid.Row="0" Grid.ColumnSpan="3" Text="NEG BLEED CURRENT" />
-            <ComboBox Grid.Column="7" Grid.Row="1" Grid.ColumnSpan="3" ItemsSource="{Binding NegBleedCurrent}" SelectedIndex="{Binding NegBleedCurrentSelectIndex}" />
+            <TextBlock Grid.Column="7"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Text="NEG BLEED&#xA;CURRENT" />
+            <ComboBox Grid.Column="7"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="3"
+                      ItemsSource="{Binding NegBleedCurrent}"
+                      SelectedIndex="{Binding NegBleedCurrentSelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="10" Grid.Row="0" Text="NEG BLEED ENABLE" />
-            <CheckBox Grid.Column="10" Grid.Row="1" IsChecked="{Binding NegBleedEnable}" />
+            <uc:TextBlockRotate Grid.Column="10"
+                                Grid.Row="0"
+                                Text="NEG BLEED&#xA;ENABLE"
+                                FontSize="10" />
+            <CheckBox Grid.Column="10"
+                      Grid.Row="1"
+                      IsChecked="{Binding NegBleedEnable}" />
 
-            <TextBlock Grid.Column="11" Grid.Row="0" Grid.ColumnSpan="4" Text="RESERVED" />
+            <TextBlock Grid.Column="11"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="4"
+                       Text="RESERVED" />
 
-            <uc:TextBlockRotate Grid.Column="15" Grid.Row="0" Text="LOL" />
-            <CheckBox Grid.Column="15" Grid.Row="1" IsChecked="{Binding LOL}" />
+            <uc:TextBlockRotate Grid.Column="15"
+                                Grid.Row="0"
+                                Text="LOL" />
+            <CheckBox Grid.Column="15"
+                      Grid.Row="1"
+                      IsChecked="{Binding LOL}" />
 
-            <uc:TextBlockRotate Grid.Column="16" Grid.Row="0" Text="N SEL" />
-            <CheckBox Grid.Column="16" Grid.Row="1" IsChecked="{Binding NSel}" />
+            <uc:TextBlockRotate Grid.Column="16"
+                                Grid.Row="0"
+                                Text="N SEL" />
+            <CheckBox Grid.Column="16"
+                      Grid.Row="1"
+                      IsChecked="{Binding NSel}" />
 
-            <uc:TextBlockRotate Grid.Column="17" Grid.Row="0" Text="SD RESET" />
-            <CheckBox Grid.Column="17" Grid.Row="1" IsChecked="{Binding SdReset}" />
+            <uc:TextBlockRotate Grid.Column="17"
+                                Grid.Row="0"
+                                Text="SD RESET" />
+            <CheckBox Grid.Column="17"
+                      Grid.Row="1"
+                      IsChecked="{Binding SdReset}" />
 
-            <uc:TextBlockRotate Grid.Column="18" Grid.Row="0" Grid.ColumnSpan="2" Text="RESERVED" />
+            <uc:TextBlockRotate Grid.Column="18"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Text="RESERVED" />
 
-            <uc:TextBlockRotate Grid.Column="20" Grid.Row="0" Grid.ColumnSpan="2" Text="RAMP MODE" />
-            <ComboBox Grid.Column="20" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding RampMode}" SelectedIndex="{Binding RampModeSelectIndex}" />
+            <uc:TextBlockRotate Grid.Column="20"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                Text="RAMP&#xA;MODE" />
+            <ComboBox Grid.Column="20"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      ItemsSource="{Binding RampMode}"
+                      SelectedIndex="{Binding RampModeSelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="22" Grid.Row="0" Text="PSK" />
-            <CheckBox Grid.Column="22" Grid.Row="1" IsChecked="{Binding PSK}" />
+            <uc:TextBlockRotate Grid.Column="22"
+                                Grid.Row="0"
+                                Text="PSK" />
+            <CheckBox Grid.Column="22"
+                      Grid.Row="1"
+                      IsChecked="{Binding PSK}" />
 
-            <uc:TextBlockRotate Grid.Column="23" Grid.Row="0" Text="FSK" />
-            <CheckBox Grid.Column="23" Grid.Row="1" IsChecked="{Binding FSK}" />
+            <uc:TextBlockRotate Grid.Column="23"
+                                Grid.Row="0"
+                                Text="FSK" />
+            <CheckBox Grid.Column="23"
+                      Grid.Row="1"
+                      IsChecked="{Binding FSK}" />
 
-            <uc:TextBlockRotate Grid.Column="24" Grid.Row="0" Text="LDP" />
-            <ComboBox Grid.Column="24" Grid.Row="1" ItemsSource="{Binding LDP}" SelectedIndex="{Binding LDPSelectIndex}" />
+            <uc:TextBlockRotate Grid.Column="24"
+                                Grid.Row="0"
+                                Text="LDP" />
+            <ComboBox Grid.Column="24"
+                      Grid.Row="1"
+                      ItemsSource="{Binding LDP}"
+                      SelectedIndex="{Binding LDPSelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="25" Grid.Row="0" Text="PD POLARITY" />
-            <ComboBox Grid.Column="25" Grid.Row="1" ItemsSource="{Binding PDPolarity}" SelectedIndex="{Binding PDPolaritySelectIndex}" />
+            <uc:TextBlockRotate Grid.Column="25"
+                                Grid.Row="0"
+                                Text="PD&#xA;POLARITY"
+                                FontSize="10" />
+            <ComboBox Grid.Column="25"
+                      Grid.Row="1"
+                      ItemsSource="{Binding PDPolarity}"
+                      SelectedIndex="{Binding PDPolaritySelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="26" Grid.Row="0" Text="POWER-DOWN" />
-            <CheckBox Grid.Column="26" Grid.Row="1" IsChecked="{Binding PowerDown}" />
+            <uc:TextBlockRotate Grid.Column="26"
+                                Grid.Row="0"
+                                Text="POWER&#xA;DOWN"
+                                FontSize="10" />
+            <CheckBox Grid.Column="26"
+                      Grid.Row="1"
+                      IsChecked="{Binding PowerDown}" />
 
-            <uc:TextBlockRotate Grid.Column="27" Grid.Row="0" Text="CP THREE-STATE" />
-            <CheckBox Grid.Column="27" Grid.Row="1" IsChecked="{Binding CPThreeState}" />
+            <uc:TextBlockRotate Grid.Column="27"
+                                Grid.Row="0"
+                                Text="CP&#xA;THREE STATE"
+                                FontSize="10" />
+            <CheckBox Grid.Column="27"
+                      Grid.Row="1"
+                      IsChecked="{Binding CPThreeState}" />
 
-            <uc:TextBlockRotate Grid.Column="28" Grid.Row="0" Text="COUNTER RESET" />
-            <CheckBox Grid.Column="28" Grid.Row="1" IsChecked="{Binding CounterReset}" />
+            <uc:TextBlockRotate Grid.Column="28"
+                                Grid.Row="0"
+                                Text="COUNTER&#xA;RESET"
+                                FontSize="10" />
+            <CheckBox Grid.Column="28"
+                      Grid.Row="1"
+                      IsChecked="{Binding CounterReset}" />
 
-            <TextBlock Grid.Column="29" Grid.Row="0" Grid.ColumnSpan="3" Text="CONTROL BITS" />
-            <TextBlock Grid.Column="29" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding ControlBits}" />
+            <TextBlock Grid.Column="29"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Text="CONTROL&#xA;BITS" />
+            <TextBlock Grid.Column="29"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="3"
+                       Text="{Binding ControlBits}" />
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="7"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="7"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="10"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="11"
+                    Grid.ColumnSpan="4"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="15"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="16"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="17"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="18"
+                    Grid.ColumnSpan="2"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="20"
+                    Grid.ColumnSpan="2"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="22"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="23"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="24"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="25"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="26"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="27"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="28"
+                    Grid.ColumnSpan="1"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,0,1" />
+            <Border Grid.Column="29"
+                    Grid.ColumnSpan="3"
+                    Grid.RowSpan="3"
+                    BorderBrush="Black"
+                    BorderThickness="1,1,1,1" />
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="32"
+                    Grid.Row="1"
+                    BorderBrush="Black"
+                    BorderThickness="0,1,0,1" />
         </uc:Grid32x2>
     </GroupBox>
 </UserControl>

@@ -6,9 +6,12 @@
         xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
         xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls" mc:Ignorable="d" d:DesignWidth="800"
         d:Background="White" Height="auto">
-    <UserControl.DataContext>
+    <d:UserControl.DataContext>
         <vm:DDSR0ViewModel />
-    </UserControl.DataContext>
+    </d:UserControl.DataContext>
+    <!--<UserControl.DataContext>
+        
+    </UserControl.DataContext>-->
     <UserControl.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </UserControl.Resources>

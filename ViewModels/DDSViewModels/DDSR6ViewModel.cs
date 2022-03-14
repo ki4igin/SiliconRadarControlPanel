@@ -39,7 +39,7 @@ public class DDSR6ViewModel : DDSRegisterViewModel
     protected override void UpdateRegisterValue()
     {
         var newValue =
-            (Convert.ToInt32(StepSel) << 23) |
+            (StepSelSelectIndex << 23) |
             (StepWord << 3) |
             ControlBits;
         Set(ref _registerValue, (uint)newValue, nameof(RegisterValue));

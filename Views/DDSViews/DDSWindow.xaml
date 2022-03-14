@@ -5,19 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
         xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
-        xmlns:ddsviews="clr-namespace:SiliconRadarControlPanel.Views.DDSViews" mc:Ignorable="d" Title="DDSWindow"
-        Height="900" Width="1000">
+        xmlns:ddsviews="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
+        mc:Ignorable="d"
+        Title="DDSWindow"
+        ResizeMode="NoResize"
+        Height="600"
+        Width="800">
     <Window.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </Window.Resources>
-    <StackPanel>        
-        <ddsviews:DDSR0View Margin="5" />
-        <ddsviews:DDSR1View Margin="5" />
-        <ddsviews:DDSR2View Margin="5" />
-        <ddsviews:DDSR3View Margin="5" />
-        <ddsviews:DDSR4View Margin="5" />
-        <ddsviews:DDSR5View Margin="5" />
-        <ddsviews:DDSR6View Margin="5" />
-        <ddsviews:DDSR7View Margin="5" />
-    </StackPanel>
+    <Window.DataContext>
+        <vm:DDSViewModel />
+    </Window.DataContext>
+    <ScrollViewer >
+        <StackPanel>
+            <ContentControl Content="{Binding DDSR0ViewModel}"
+                            Margin="5,5,5,0" />
+            <ddsviews:DDSR1View Margin="5,5,5,0" />
+            <ddsviews:DDSR2View Margin="5,5,5,0" />
+            <ddsviews:DDSR3View Margin="5,5,5,0" />
+            <ddsviews:DDSR4View Margin="5,5,5,0" />
+            <ddsviews:DDSR5View Margin="5,5,5,0" />
+            <ddsviews:DDSR6View Margin="5,5,5,0" />
+            <ddsviews:DDSR7View Margin="5,5,5,0" />
+        </StackPanel>
+    </ScrollViewer>
 </Window>
