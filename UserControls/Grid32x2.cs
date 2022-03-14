@@ -11,7 +11,6 @@ public class Grid32x2 : Grid
 {
     private readonly List<TextBlock> _bitsTextBlocks;
 
-
     public static readonly DependencyProperty RegisterValueProperty = DependencyProperty.Register(
         "RegisterValue",
         typeof(uint),
@@ -32,13 +31,18 @@ public class Grid32x2 : Grid
         {
             var columnDefinitions = new ColumnDefinition
             {
-                Width = new GridLength(1.0, GridUnitType.Star)                
+                Width = new GridLength(1.0, GridUnitType.Star)
             };
             ColumnDefinitions.Add(columnDefinitions);
         }
-        for (int i = 0; i < 3; i++)
+        var rowDefinition = new RowDefinition();
+        RowDefinitions.Add(rowDefinition);
+        for (int i = 0; i < 2; i++)
         {
-            var rowDefinition = new RowDefinition();
+            rowDefinition = new RowDefinition()
+            {
+                Height = new GridLength(1.0, GridUnitType.Star)
+            };
             RowDefinitions.Add(rowDefinition);
         }
 
@@ -79,6 +83,4 @@ public class Grid32x2 : Grid
             bitsTextBlocks[i].Text = (value & (1U << i)) != 0 ? "1" : "0";
         }
     }
-
-
 }

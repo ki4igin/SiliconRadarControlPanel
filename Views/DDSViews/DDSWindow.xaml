@@ -5,33 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
         xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
-        xmlns:ddsviews="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
-        mc:Ignorable="d"
-        Title="DDSWindow" Height="900" Width="800">
-    <StackPanel>
-        <StackPanel.Resources>
-            <Style TargetType="TextBlock">                
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="3"/>
-            </Style>
-            <Style TargetType="uc:TextBlockRotate">
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="3"/>
-                <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="Margin" Value="3"/>
-                <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
-            </Style>
-        </StackPanel.Resources>
-        <ddsviews:DDSR0View Margin="5"/>
-        <ddsviews:DDSR1View Margin="5"/>
-        <ddsviews:DDSR2View Margin="5"/>
-        <ddsviews:DDSR3View Margin="5"/>
-        <ddsviews:DDSR4View Margin="5"/>
-        <ddsviews:DDSR5View Margin="5"/>
-        <ddsviews:DDSR6View Margin="5"/>
-        <ddsviews:DDSR7View Margin="5"/>
+        xmlns:ddsviews="clr-namespace:SiliconRadarControlPanel.Views.DDSViews" mc:Ignorable="d" Title="DDSWindow"
+        Height="900" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary Source="DDSStyles.xaml" />
+    </Window.Resources>
+    <StackPanel>        
+        <ddsviews:DDSR0View Margin="5" />
+        <ddsviews:DDSR1View Margin="5" />
+        <ddsviews:DDSR2View Margin="5" />
+        <ddsviews:DDSR3View Margin="5" />
+        <ddsviews:DDSR4View Margin="5" />
+        <ddsviews:DDSR5View Margin="5" />
+        <ddsviews:DDSR6View Margin="5" />
+        <ddsviews:DDSR7View Margin="5" />
     </StackPanel>
 </Window>

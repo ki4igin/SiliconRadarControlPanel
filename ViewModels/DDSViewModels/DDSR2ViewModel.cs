@@ -17,7 +17,7 @@ public class DDSR2ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _cpCurrentSetting =
+    private readonly string[] _cpCurrentSetting =
         {
             "0.31", "0.63", "0.94", "1.25",
             "1.57", "1.88", "2.19", "2.5",
@@ -37,7 +37,7 @@ public class DDSR2ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _prescaler = { "4/5", "8/9" };
+    private readonly string[] _prescaler = { "4/5", "8/9" };
     public string[] Prescaler { get => _prescaler; }
 
     #region NotifyProperty <int> PrescalerSelectIndex
@@ -90,7 +90,7 @@ public class DDSR2ViewModel : DDSRegisterViewModel
     {
         get => _clk1DividerValue;
         set =>
-            SetValueIf(ref _clk1DividerValue, value, (v) => v is >= 0 and < 4096)
+            SetValueIf(ref _clk1DividerValue, value, (v) => v is >= 0 and < (2 << 12))
             .Then(() => UpdateRegisterValue());
     }
     #endregion

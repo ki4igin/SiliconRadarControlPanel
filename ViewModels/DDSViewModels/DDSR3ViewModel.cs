@@ -5,7 +5,7 @@ namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR3ViewModel : DDSRegisterViewModel
 {
-    public readonly string[] _negBleedCurrent = {
+    private readonly string[] _negBleedCurrent = {
         "3.73", "11.03", "25.25", "53.1",
         "109.7", "224.7", "454.7", "916.4"
     };
@@ -66,7 +66,7 @@ public class DDSR3ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _rampMode = {
+    private readonly string[] _rampMode = {
         "CONTINUOUS SAWTOOTH",
         "CONTINUOUS TRIANGULAR",
         "SINGLE SAWTOOTH BURST",
@@ -107,7 +107,7 @@ public class DDSR3ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _ldp = {
+    private readonly string[] _ldp = {
         "14ns",
         "6ns"
     };
@@ -124,7 +124,7 @@ public class DDSR3ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _pdPolarity = {
+    private readonly string[] _pdPolarity = {
         "N",
         "P"
     };

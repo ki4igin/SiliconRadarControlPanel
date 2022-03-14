@@ -33,12 +33,12 @@ public class DDSR0ViewModel : DDSRegisterViewModel
     {
         get => _fractionalValue;
         set =>
-            SetValueIf(ref _fractionalValue, value, (v) => v is >= 0 and <= 4095)
+            SetValueIf(ref _fractionalValue, value, (v) => v is >= 0 and < (2 << 12))
             .Then(() => UpdateRegisterValue());
     }
     #endregion
 
-    public readonly string[] _muxControl =
+    private readonly string[] _muxControl =
     {
         "THREE-STATE OUTPUT",
         "DV DD",

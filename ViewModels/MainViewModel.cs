@@ -30,15 +30,12 @@ public class MainViewModel : TitledViewModel
     );
     #endregion
 
-
     #region Command OpenDDSWindow
     private SimpleCommand? _openDDSWindow;
     public SimpleCommand OpenDDSWindow => _openDDSWindow ??= new SimpleCommand(
         execute: () => _ddsWindow.Show()
     );
     #endregion
-
-
 
     public MainViewModel()
     {

@@ -1,45 +1,44 @@
-﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR2View"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
-             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
-             xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="200" d:DesignWidth="800" d:Background="White">
+﻿<UserControl x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSR2View" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews" xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels" xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls" mc:Ignorable="d" d:DesignHeight="200" d:DesignWidth="800" d:Background="White">
     <UserControl.DataContext>
-        <vm:DDSR2ViewModel/>
+        <vm:DDSR2ViewModel />
     </UserControl.DataContext>
     <GroupBox Header="{Binding Title}">
         <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="RESERVED"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Text="RESERVED" />
 
-            <uc:TextBlockRotate Grid.Column="3" Grid.Row="0" Text="CSR"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <CheckBox Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding CSR}"/>
+            <uc:TextBlockRotate Grid.Column="3" Grid.Row="0" Text="CSR" />
+            <CheckBox Grid.Column="3" Grid.Row="1" IsChecked="{Binding CSR}" />
 
-            <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="4" Text="CP CURRENT SETTING"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
-            <ComboBox Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Center" ItemsSource="{Binding CpCurrentSetting}" SelectedIndex="{Binding CpCurrentSettingSelectIndex}"/>
+            <TextBlock Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="4" Text="CP CURRENT SETTING" />
+            <ComboBox Grid.Column="4" Grid.Row="1" Grid.ColumnSpan="4" ItemsSource="{Binding CpCurrentSetting}" SelectedIndex="{Binding CpCurrentSettingSelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="8" Grid.Row="0" Text="RESERVED"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <uc:TextBlockRotate Grid.Column="8" Grid.Row="0" Text="RESERVED" />
 
-            <uc:TextBlockRotate Grid.Column="9" Grid.Row="0" Text="PRESCALER"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <ComboBox Grid.Column="8" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" ItemsSource="{Binding Prescaler}" SelectedIndex="{Binding PrescalerSelectIndex}"/>
+            <uc:TextBlockRotate Grid.Column="9" Grid.Row="0" Text="PRESCALER" />
+            <ComboBox Grid.Column="9" Grid.Row="1" ItemsSource="{Binding Prescaler}" SelectedIndex="{Binding PrescalerSelectIndex}" />
 
-            <uc:TextBlockRotate Grid.Column="10" Grid.Row="0" Text="RDIV2"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <CheckBox Grid.Column="10" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Rdiv2}"/>
+            <uc:TextBlockRotate Grid.Column="10" Grid.Row="0" Text="RDIV2" />
+            <CheckBox Grid.Column="10" Grid.Row="1" IsChecked="{Binding Rdiv2}" />
 
-            <uc:TextBlockRotate Grid.Column="11" Grid.Row="0" Text="REFERENCE DOUBLER" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <CheckBox Grid.Column="11" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding ReferenceDoubler}"/>
+            <uc:TextBlockRotate Grid.Column="11" Grid.Row="0" Text="REFERENCE DOUBLER" />
+            <CheckBox Grid.Column="11" Grid.Row="1" IsChecked="{Binding ReferenceDoubler}" />
 
-            <TextBlock Grid.Column="12" Grid.Row="0" Grid.ColumnSpan="5" Text="5-BIT R COUNTER" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <TextBox Grid.Column="12" Grid.Row="1" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding RCounter}"/>
+            <TextBlock Grid.Column="12" Grid.Row="0" Grid.ColumnSpan="5" Text="5-BIT R COUNTER" />
+            <TextBox Grid.Column="12" Grid.Row="1" Grid.ColumnSpan="5" Text="{Binding RCounter}" />
 
-            <TextBlock Grid.Column="17" Grid.Row="0" Grid.ColumnSpan="12" Text="12-BIT CLK1 DIVIDER VALUE" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
-            <TextBox Grid.Column="17" Grid.Row="1" Grid.ColumnSpan="12" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding Clk1DividerValue}"/>
+            <TextBlock Grid.Column="17" Grid.Row="0" Grid.ColumnSpan="12" Text="12-BIT CLK1 DIVIDER VALUE" />
+            <TextBox Grid.Column="17" Grid.Row="1" Grid.ColumnSpan="12" Text="{Binding Clk1DividerValue}" />
 
-            <TextBlock Grid.Column="29" Grid.Row="0" Grid.ColumnSpan="3" Text="CONTROL BITS" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
-            <TextBlock Grid.Column="29" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding ControlBits}"/>
+            <TextBlock Grid.Column="29" Grid.Row="0" Grid.ColumnSpan="3" Text="CONTROL BITS" />
+            <TextBlock Grid.Column="29" Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding ControlBits}" />
+
+            <Border Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1,1,0,1" />
+            <Border Grid.Column="3" Grid.ColumnSpan="1" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1,1,0,1" />
+            <Border Grid.Column="4" Grid.ColumnSpan="13" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1,1,0,1" />
+            <Border Grid.Column="17" Grid.ColumnSpan="12" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1,1,0,1" />
+            <Border Grid.Column="29" Grid.ColumnSpan="3" Grid.RowSpan="3" BorderBrush="Black" BorderThickness="1,1,1,1" />
+
+            <Border Grid.Column="0" Grid.ColumnSpan="32" Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,1" />
         </uc:Grid32x2>
     </GroupBox>
 </UserControl>
