@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -17,7 +18,7 @@ public class DDSR5ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _txRampClk = { "CLK DIV", "Txdata" };
+    private readonly string[] _txRampClk = { "CLK DIV", "Txdata" };
     public string[] TXrampClk { get => _txRampClk; }
 
     #region NotifyProperty <int> TXrampClkSelectIndex
@@ -42,7 +43,7 @@ public class DDSR5ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _interrupt = {
+    private readonly string[] _interrupt = {
         "INTERRUPT OFF",
         "LOAD CHANNEL CONTINUE SWEEP",
         "NOT USED",
@@ -83,7 +84,7 @@ public class DDSR5ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _devSel = { "1", "2" };
+    private readonly string[] _devSel = { "1", "2" };
     public string[] DevSel { get => _devSel; }
 
     #region NotifyProperty <int> DevSelSelectIndex
@@ -119,7 +120,8 @@ public class DDSR5ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public DDSR5ViewModel()
+    public DDSR5ViewModel() : this(new Communication()) { }
+    public DDSR5ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 5;
         Title = "DEVIATION REGISTER (R5)";

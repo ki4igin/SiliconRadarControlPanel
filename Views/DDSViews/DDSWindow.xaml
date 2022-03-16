@@ -14,20 +14,27 @@
     <Window.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </Window.Resources>
-    <Window.DataContext>
+    <d:Window.DataContext>
         <vm:DDSViewModel />
-    </Window.DataContext>
+    </d:Window.DataContext>
     <ScrollViewer >
         <StackPanel>
             <ContentControl Content="{Binding DDSR0ViewModel}"
                             Margin="5,5,5,0" />
-            <ddsviews:DDSR1View Margin="5,5,5,0" />
-            <ddsviews:DDSR2View Margin="5,5,5,0" />
-            <ddsviews:DDSR3View Margin="5,5,5,0" />
-            <ddsviews:DDSR4View Margin="5,5,5,0" />
-            <ddsviews:DDSR5View Margin="5,5,5,0" />
-            <ddsviews:DDSR6View Margin="5,5,5,0" />
-            <ddsviews:DDSR7View Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR1ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR2ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR3ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR4ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR5ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR6ViewModel}"
+                            Margin="5,5,5,0" />
+            <ContentControl Content="{Binding DDSR7ViewModel}"
+                            Margin="5,5,5,0" />
         </StackPanel>
     </ScrollViewer>
 </Window>

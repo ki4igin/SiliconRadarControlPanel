@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -83,7 +84,7 @@ public class DDSR7ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _devClkSel = { "PFD CLK", "PFD CLK × CLK" };
+    private readonly string[] _devClkSel = { "PFD CLK", "PFD CLK × CLK" };
     public string[] DevClkSel { get => _devClkSel; }
 
     #region NotifyProperty <int> DelClkSelSelectIndex
@@ -119,7 +120,8 @@ public class DDSR7ViewModel : DDSRegisterViewModel
     }
     #endregion  
 
-    public DDSR7ViewModel()
+    public DDSR7ViewModel() : this(new Communication()) { }
+    public DDSR7ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 6;
         Title = "DELAY REGISTER (R7)";

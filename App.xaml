@@ -9,5 +9,26 @@
         <DataTemplate DataType="{x:Type vm:DDSR0ViewModel}">
             <v:DDSR0View />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR1ViewModel}">
+            <v:DDSR1View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR2ViewModel}">
+            <v:DDSR2View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR3ViewModel}">
+            <v:DDSR3View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR4ViewModel}">
+            <v:DDSR4View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR5ViewModel}">
+            <v:DDSR5View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR6ViewModel}">
+            <v:DDSR6View />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DDSR7ViewModel}">
+            <v:DDSR7View />
+        </DataTemplate>
     </Application.Resources>
 </Application>

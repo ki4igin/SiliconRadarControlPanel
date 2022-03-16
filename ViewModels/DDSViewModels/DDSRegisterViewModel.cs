@@ -1,4 +1,6 @@
-﻿using SiliconRadarControlPanel.ViewModels.Base;
+﻿using SiliconRadarControlPanel.Commands.Base;
+using SiliconRadarControlPanel.Services;
+using SiliconRadarControlPanel.ViewModels.Base;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
@@ -20,8 +22,27 @@ public abstract class DDSRegisterViewModel : TitledViewModel
     }
     #endregion
 
+    public DDSRegisterViewModel()
+    {
+        _communication = new Communication();
+    }
+    public DDSRegisterViewModel(Communication communication)
+    {
+        _communication = communication;
+    }
+
     protected abstract void UpdateRegisterValue();
     protected abstract void UpdateBitFields(uint registerValue);
+
+    #region Command TestCommand
+    private SimpleCommand? _testCommand;
+    private readonly Communication _communication;
+
+    public SimpleCommand TestCommand => _testCommand ??= new SimpleCommand(
+        execute: () => _communication.SendRegisterValue(RegisterValue),
+        canExecute: () => _communication.IsConnected
+    );
+    #endregion
 
 }
 

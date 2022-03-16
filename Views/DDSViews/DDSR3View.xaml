@@ -10,9 +10,9 @@
              d:DesignWidth="800"
              d:Background="White"
              Height="auto">
-    <UserControl.DataContext>
+    <d:UserControl.DataContext>
         <vm:DDSR3ViewModel />
-    </UserControl.DataContext>
+    </d:UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </UserControl.Resources>
@@ -137,10 +137,16 @@
                       Grid.Row="1"
                       IsChecked="{Binding CounterReset}" />
 
-            <TextBlock Grid.Column="29"
+            <!--<TextBlock Grid.Column="29"
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
-                       Text="CONTROL&#xA;BITS" />
+                       Text="CONTROL&#xA;BITS" />-->
+            <Button Grid.Column="29"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    Command="{Binding TestCommand}">
+                <TextBlock Text="CONTROL&#xA;BITS" />
+            </Button>
             <TextBlock Grid.Column="29"
                        Grid.Row="1"
                        Grid.ColumnSpan="3"

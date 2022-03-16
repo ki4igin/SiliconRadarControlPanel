@@ -36,5 +36,3 @@ public partial class App : Application
         Log.CloseAndFlush();
     }
 }
-
-

@@ -257,4 +257,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="Button">
+        <Setter Property="HorizontalContentAlignment"
+                Value="Center" />
+    </Style>
 </ResourceDictionary>

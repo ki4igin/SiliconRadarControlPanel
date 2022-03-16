@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -39,7 +40,8 @@ public class DDSR1ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public DDSR1ViewModel()
+    public DDSR1ViewModel() : this(new Communication()) { }
+    public DDSR1ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 1;
         Title = "LSB FRAC REGISTER (R1)";

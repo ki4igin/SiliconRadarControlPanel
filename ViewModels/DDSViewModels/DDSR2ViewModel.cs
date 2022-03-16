@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -95,7 +96,8 @@ public class DDSR2ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public DDSR2ViewModel()
+    public DDSR2ViewModel() : this(new Communication()) { }
+    public DDSR2ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 2;
         Title = "R DIVIDER REGISTER (R2)";

@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -21,7 +22,7 @@ public class DDSR4ViewModel : DDSRegisterViewModel
         0b01110
     };
 
-    public readonly string[] _ΣΔModulatorMode = {
+    private readonly string[] _ΣΔModulatorMode = {
         "NORMAL OPERATIO",
         "DISABLED WHEN FRAC = 0"
     };
@@ -46,7 +47,7 @@ public class DDSR4ViewModel : DDSRegisterViewModel
         0b10001
     };
 
-    public readonly string[] _rampStatus = {
+    private readonly string[] _rampStatus = {
         "NORMAL OPERATION",
         "READBACK TO MUXOUT",
         "RAMP COMPLETE TO MUXOUT",
@@ -66,7 +67,7 @@ public class DDSR4ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _clkDivMode = {
+    private readonly string[] _clkDivMode = {
         "CLOCK DIVIDER OFF",
         "FAST LOCK DIVIDER",
         "RESERVED",
@@ -96,7 +97,7 @@ public class DDSR4ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public readonly string[] _clkDivSel = { "1", "2" };
+    private readonly string[] _clkDivSel = { "1", "2" };
     public string[] ClkDivSel { get => _clkDivSel; }
 
     #region NotifyProperty <int> ClkDivSelSelectIndex
@@ -110,7 +111,8 @@ public class DDSR4ViewModel : DDSRegisterViewModel
     }
     #endregion
 
-    public DDSR4ViewModel()
+    public DDSR4ViewModel() : this(new Communication()) { }
+    public DDSR4ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 4;
         Title = "CLOCK REGISTER (R4)";

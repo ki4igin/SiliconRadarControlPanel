@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -69,8 +70,8 @@ public class DDSR0ViewModel : DDSRegisterViewModel
             .Then(() => UpdateRegisterValue());
     }
     #endregion
-
-    public DDSR0ViewModel()
+    public DDSR0ViewModel() : this(new Communication()) { }
+    public DDSR0ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 0;
         Title = "FRAC/INT REGISTER (R0)";
@@ -78,7 +79,7 @@ public class DDSR0ViewModel : DDSRegisterViewModel
 
     protected override void UpdateRegisterValue()
     {
-        var newValue = 
+        var newValue =
             (Convert.ToInt32(RampOn) << 31) |
             (MuxControlSelectIndex << 27) |
             (IntegerValue << 15) |

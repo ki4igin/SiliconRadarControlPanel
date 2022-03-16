@@ -1,4 +1,5 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -174,7 +175,8 @@ public class DDSR3ViewModel : DDSRegisterViewModel
     }
     #endregion    
 
-    public DDSR3ViewModel()
+    public DDSR3ViewModel() : this(new Communication()) { }
+    public DDSR3ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 3;
         Title = "FUNCTION REGISTER (R3)";

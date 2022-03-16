@@ -7,6 +7,7 @@ using System.Windows.Input;
 using SiliconRadarControlPanel.Services;
 using SiliconRadarControlPanel.Views;
 using SiliconRadarControlPanel.Views.DDSViews;
+using SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 namespace SiliconRadarControlPanel.ViewModels;
 
@@ -14,6 +15,7 @@ public class MainViewModel : TitledViewModel
 {
     private readonly Communication _communication;
     private readonly DDSWindow _ddsWindow;
+    private DDSViewModel _ddsViewModel;
 
     #region Command Connect
     private SimpleCommand? _connect;
@@ -21,7 +23,6 @@ public class MainViewModel : TitledViewModel
         () => _communication.Connect()
     );
     #endregion
-
 
     #region Command ConnectAsync
     private CommandAsync? _connectAsync;
@@ -40,6 +41,11 @@ public class MainViewModel : TitledViewModel
     public MainViewModel()
     {
         _communication = new Communication();
-        _ddsWindow = new DDSWindow();
+        _ddsViewModel = new DDSViewModel(_communication);
+        _ddsWindow = new DDSWindow()
+        {
+            DataContext = _ddsViewModel
+        };
+        
     }
 }

@@ -1,11 +1,12 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
+using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR6ViewModel : DDSRegisterViewModel
 {
-    public readonly string[] _stepSel = { "1", "2" };
+    private readonly string[] _stepSel = { "1", "2" };
     public string[] StepSel { get => _stepSel; }
 
     #region NotifyProperty <int> StepSelSelectIndex
@@ -30,7 +31,8 @@ public class DDSR6ViewModel : DDSRegisterViewModel
     }
     #endregion  
 
-    public DDSR6ViewModel()
+    public DDSR6ViewModel() : this(new Communication()) { }
+    public DDSR6ViewModel(Communication communication) : base(communication)
     {
         ControlBits = 6;
         Title = "STEP REGISTER (R6)";
