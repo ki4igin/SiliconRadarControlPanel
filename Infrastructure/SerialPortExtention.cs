@@ -20,7 +20,7 @@ public static class SerialPortExtention
         return true;
     }
 
-    public static bool TryRead(this SerialPort serialPort, byte[] buffer, int offset, int count)
+    public static bool TryRead(this SerialPort serialPort, byte[] buffer, int count)
     {
         int rxCount = 0;
         try
@@ -29,7 +29,25 @@ public static class SerialPortExtention
             {
                 rxCount += serialPort.Read(buffer, rxCount, count - rxCount);
             } while (rxCount != count);
-            
+
+        }
+        catch (TimeoutException)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public static bool TryRead(this SerialPort serialPort, byte[] buffer, int offset, int count)
+    {
+        int rxCount = 0;
+        try
+        {
+            do
+            {
+                rxCount += serialPort.Read(buffer, offset + rxCount, count - rxCount);
+            } while (rxCount != count);
+
         }
         catch (TimeoutException)
         {
@@ -40,6 +58,9 @@ public static class SerialPortExtention
 
     public static async Task<bool> TryReadAsync(this SerialPort serialPort, byte[] buffer, int offset, int count) =>
         await Task.Run(() => TryRead(serialPort, buffer, offset, count));
+
+    public static async Task<bool> TryReadAsync(this SerialPort serialPort, byte[] buffer, int count) =>
+        await Task.Run(() => TryRead(serialPort, buffer, count));
 
     public static async Task ReadAsync(this SerialPort serialPort, byte[] buffer, int offset, int count) =>
         await Task.Run(() =>
@@ -52,6 +73,6 @@ public static class SerialPortExtention
             {
                 throw new TimeoutException();
             }
-           
+
         });
 }
