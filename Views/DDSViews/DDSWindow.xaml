@@ -10,13 +10,12 @@
         Title="DDSWindow"
         ResizeMode="NoResize"
         Height="600"
-        Width="800">
+        Width="800"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=DDSViewModel}">
     <Window.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </Window.Resources>
-    <d:Window.DataContext>
-        <vm:DDSViewModel />
-    </d:Window.DataContext>
+
     <ScrollViewer >
         <StackPanel>
             <ContentControl Content="{Binding DDSR0ViewModel}"

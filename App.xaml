@@ -2,33 +2,42 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SiliconRadarControlPanel"
-             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+             xmlns:ddsvm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+             xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels"
              xmlns:v="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type vm:DDSR0ViewModel}">
-            <v:DDSR0View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR1ViewModel}">
-            <v:DDSR1View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR2ViewModel}">
-            <v:DDSR2View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR3ViewModel}">
-            <v:DDSR3View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR4ViewModel}">
-            <v:DDSR4View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR5ViewModel}">
-            <v:DDSR5View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR6ViewModel}">
-            <v:DDSR6View />
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DDSR7ViewModel}">
-            <v:DDSR7View />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Commands/Commands.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <vm:ViewModelLocator x:Key="ViewModelLocator" />
+
+            <DataTemplate DataType="{x:Type ddsvm:DDSR0ViewModel}">
+                <v:DDSR0View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR1ViewModel}">
+                <v:DDSR1View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR2ViewModel}">
+                <v:DDSR2View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR3ViewModel}">
+                <v:DDSR3View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR4ViewModel}">
+                <v:DDSR4View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR5ViewModel}">
+                <v:DDSR5View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR6ViewModel}">
+                <v:DDSR6View />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ddsvm:DDSR7ViewModel}">
+                <v:DDSR7View />
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

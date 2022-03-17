@@ -29,7 +29,6 @@ public abstract class ViewModelBase : INotifyPropertyChanged
            false => false
        };
 
-
     protected SetValueResult<T> SetValue<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
     {
         if (EqualityComparer<T>.Default.Equals(field, value) == true)

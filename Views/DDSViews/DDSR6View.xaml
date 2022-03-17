@@ -47,7 +47,8 @@
             <Button Grid.Column="29"
                     Grid.Row="0"
                     Grid.ColumnSpan="3"
-                    Command="{Binding TestCommand}">
+                    Command="{StaticResource SendRegisterValue}"
+                    CommandParameter="{Binding RegisterValue}">
                 <TextBlock Text="CONTROL&#xA;BITS" />
             </Button>
             <TextBlock Grid.Column="29"

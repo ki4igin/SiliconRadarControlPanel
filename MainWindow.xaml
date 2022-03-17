@@ -7,21 +7,36 @@
         xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}"
-        ResizeMode="NoResize"        
+        ResizeMode="NoResize"
         Height="450"
-        Width="800">
-    <Window.DataContext>
-        <vm:MainViewModel />
-    </Window.DataContext>
+        Width="800"
+        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
     <DockPanel>
         <UniformGrid DockPanel.Dock="Top"
                      HorizontalAlignment="Left">
             <Button Content="Connect"
                     Width="100"
                     Command="{Binding Connect}" />
-            <Button Content="Connect2"
-                    Width="100"
-                    Command="{Binding ConnectAsync}" />
+            <Button Width="100">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Command"
+                                Value="{Binding ConnectAsync}" />
+                        <Setter Property="Content"
+                                Value="Connect2" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}"
+                                         Value="true">
+                                <Setter Property="Command"
+                                        Value="{Binding DisConnect}" />
+                                <Setter Property="Content"
+                                        Value="DisConnect" />
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button Content="Open DDS"
                     Width="100"
                     Command="{Binding OpenDDSWindow}" />
