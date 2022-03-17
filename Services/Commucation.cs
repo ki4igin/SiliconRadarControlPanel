@@ -74,11 +74,12 @@ public class Communication
                 continue;
 
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
+            _serialPort.DiscardInBuffer();
             const string testCommand = "test";
             SendCommand(testCommand);
             byte[] rxBuffer = new byte[testCommand.Length];
 
-            if (await _serialPort.TryReadAsync(rxBuffer, 0, testCommand.Length) is false)
+            if (await _serialPort.TryReadAsync(rxBuffer, testCommand.Length) is false)
             {
                 _serialPort.Close();
                 continue;
@@ -97,6 +98,14 @@ public class Communication
         return IsConnected;
     }
 
+    public void DisConnect()
+    {
+        if (IsConnected)
+        {
+            _serialPort.Close();
+            IsConnected = false;
+        }
+    }
 
     //public async Task<bool> ConnectAsync()
     //{
