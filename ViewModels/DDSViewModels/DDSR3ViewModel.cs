@@ -194,7 +194,7 @@ public class DDSR3ViewModel : DDSRegisterViewModel
             (Convert.ToInt32(PSK) << 9) |
             (Convert.ToInt32(FSK) << 8) |
             (LDPSelectIndex << 7) |
-            (PDPolaritySelectIndex << 7) |
+            (PDPolaritySelectIndex << 6) |
             (Convert.ToInt32(PowerDown) << 5) |
             (Convert.ToInt32(CPThreeState) << 4) |
             (Convert.ToInt32(CounterReset) << 3) |
