@@ -3,8 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SiliconRadarControlPanel"
-        xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}"
         ResizeMode="NoResize"
@@ -40,7 +38,7 @@
             <Button Content="Open DDS"
                     Width="100"
                     Command="{Binding OpenDDSWindow}" />
-            <TextBox />
+            <Button Command="{Binding Save}" />
         </UniformGrid>
         <Grid DockPanel.Dock="Right"
               Width="100"

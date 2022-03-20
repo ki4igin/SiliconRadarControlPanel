@@ -6,5 +6,6 @@ internal static class Registrator
 {
     public static void AddServices(this IServiceCollection services) =>
         services
-        .AddSingleton<Communication>();
+        .AddSingleton<Communication>()
+    ;
 }

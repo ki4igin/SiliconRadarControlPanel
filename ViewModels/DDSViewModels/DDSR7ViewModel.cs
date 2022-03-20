@@ -1,139 +1,165 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR7ViewModel : DDSRegisterViewModel
 {
-
     #region NotifyProperty <bool> TXdataTriggerDelay;
-    private bool _txdataTriggerDelay;
-    public bool TXdataTriggerDelay
+
+    private bool _txDataTriggerDelay;
+
+    public bool TxDataTriggerDelay
     {
-        get => _txdataTriggerDelay;
+        get => _txDataTriggerDelay;
         set =>
-            SetValue(ref _txdataTriggerDelay, value)
-            .Then(() => UpdateRegisterValue());
+            SetValue(ref _txDataTriggerDelay, value)
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> TriDelay;
+
     private bool _triDelay;
+
     public bool TriDelay
     {
         get => _triDelay;
         set =>
             SetValue(ref _triDelay, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> SingFullTri;
+
     private bool _singFullTri;
+
     public bool SingFullTri
     {
         get => _singFullTri;
         set =>
             SetValue(ref _singFullTri, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> TXdataTrigger;
-    private bool _txdataTrigger;
-    public bool TXdataTrigger
+
+    private bool _txDataTrigger;
+
+    public bool TxDataTrigger
     {
-        get => _txdataTrigger;
+        get => _txDataTrigger;
         set =>
-            SetValue(ref _txdataTrigger, value)
-            .Then(() => UpdateRegisterValue());
+            SetValue(ref _txDataTrigger, value)
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> FastRamp;
+
     private bool _fastRamp;
+
     public bool FastRamp
     {
         get => _fastRamp;
         set =>
             SetValue(ref _fastRamp, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> RampDelayFL;
+
     private bool _rampDelayFL;
+
     public bool RampDelayFL
     {
         get => _rampDelayFL;
         set =>
             SetValue(ref _rampDelayFL, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> RampDelay;
+
     private bool _rampDelay;
+
     public bool RampDelay
     {
         get => _rampDelay;
         set =>
             SetValue(ref _rampDelay, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _devClkSel = { "PFD CLK", "PFD CLK × CLK" };
-    public string[] DevClkSel { get => _devClkSel; }
+    public string[] DevClkSel { get; } = { "PFD CLK", "PFD CLK × CLK" };
 
     #region NotifyProperty <int> DelClkSelSelectIndex
-    private int _devClkSelSelectIndex = 0;
+
+    private int _devClkSelSelectIndex;
+
     public int DevClkSelSelectIndex
     {
         get => _devClkSelSelectIndex;
         set =>
             SetValue(ref _devClkSelSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> DelStartEn;
+
     private bool _delStartEn;
+
     public bool DelStartEn
     {
         get => _delStartEn;
         set =>
             SetValue(ref _delStartEn, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <int> DelayStartWord
-    private int _delayStartWord = 0;
+
+    private int _delayStartWord;
+
     public int DelayStartWord
     {
         get => _delayStartWord;
         set =>
-            SetValueIf(ref _delayStartWord, value, (v) => v is >= 0 and < (2 << 12))
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _delayStartWord, value, v => v is >= 0 and < (2 << 12))
+                .Then(UpdateRegisterValue);
     }
-    #endregion  
 
-    public DDSR7ViewModel() : this(new Communication()) { }
-    public DDSR7ViewModel(Communication communication) : base(communication)
+    #endregion
+
+    public DDSR7ViewModel()
     {
         ControlBits = 6;
         Title = "DELAY REGISTER (R7)";
     }
 
-    protected override void UpdateRegisterValue()
+    protected virtual void UpdateRegisterValue()
     {
-        var newValue =
-            (Convert.ToInt32(TXdataTriggerDelay) << 23) |
+        int newValue =
+            (Convert.ToInt32(TxDataTriggerDelay) << 23) |
             (Convert.ToInt32(TriDelay) << 22) |
             (Convert.ToInt32(SingFullTri) << 21) |
-            (Convert.ToInt32(TXdataTrigger) << 20) |
+            (Convert.ToInt32(TxDataTrigger) << 20) |
             (Convert.ToInt32(FastRamp) << 19) |
             (Convert.ToInt32(RampDelayFL) << 18) |
             (Convert.ToInt32(RampDelay) << 17) |
@@ -146,15 +172,15 @@ public class DDSR7ViewModel : DDSRegisterViewModel
 
     protected override void UpdateBitFields(uint registerValue)
     {
-        TXdataTriggerDelay = Register.IsBitSet(registerValue, 23);
+        TxDataTriggerDelay = Register.IsBitSet(registerValue, 23);
         TriDelay = Register.IsBitSet(registerValue, 22);
         SingFullTri = Register.IsBitSet(registerValue, 21);
-        TXdataTrigger = Register.IsBitSet(registerValue, 20);
+        TxDataTrigger = Register.IsBitSet(registerValue, 20);
         FastRamp = Register.IsBitSet(registerValue, 19);
         RampDelayFL = Register.IsBitSet(registerValue, 18);
         RampDelay = Register.IsBitSet(registerValue, 17);
         DevClkSelSelectIndex = Register.GetBitFiled(registerValue, 16, 1);
-        DelStartEn  = Register.IsBitSet(registerValue, 15);
+        DelStartEn = Register.IsBitSet(registerValue, 15);
         DelayStartWord = Register.GetBitFiled(registerValue, 3, 12);
     }
 }

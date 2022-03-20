@@ -1,62 +1,84 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
-using System.Text.Json;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SiliconRadarControlPanel.Infrastructure;
 
-public interface ISettings
-{
+public interface IWritableSettings { }
+public interface IReadableSettings { }
 
-}
-
-public static class SettingsExtension
+public static class SettingsExtentions
 {
-    public static void Save<T>(this T settings) where T : ISettings
+    private const string SettingsFileName = App.SettingsFileName;
+
+    public static void SaveToFile<T>(this T settings) where T : IWritableSettings
     {
-        var dirPath = AppContext.BaseDirectory + "/settings";
-        var fileName = $".{settings.GetType().Name.ToLower()}";
-        var filePath = $"{dirPath}/{fileName}.json";
-        Directory.CreateDirectory(dirPath);
-        string jsonString = settings.SaveToStr();
-        File.WriteAllText(filePath, jsonString);
-    }
-    public static void Read<T>(this T settings) where T : ISettings
-    {
-        var dirPath = AppContext.BaseDirectory + "/settings";
-        var fileName = $".{settings.GetType().Name.ToLower()}";
-        var filePath = $"{dirPath}/{fileName}.json";
-        if (File.Exists(filePath) is false)
+        string settingsPath = $"{AppContext.BaseDirectory}/{SettingsFileName}";
+
+        string? jsonString = File.ReadAllText(settingsPath);
+
+        if (jsonString.TryUpdateJsonObject(settings, out jsonString) is false)
             return;
-        var jsonString = File.ReadAllText(filePath);
-        settings.ReadFromStr(jsonString);
+
+        File.WriteAllText(settingsPath, jsonString);
     }
 
-    private static string SaveToStr<T>(this T settings) where T : ISettings
+    public static void LoadFromFile<T>(this T settings) where T : IReadableSettings
     {
-        var jsonOptions = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-        };
-        return JsonSerializer.Serialize(settings, jsonOptions);
-    }
-    private static void ReadFromStr<T>(this T settings, string str) where T : ISettings
-    {
-        var jsonOptions = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-        };
-        var newSettings = JsonSerializer.Deserialize<T>(str, jsonOptions);
+        string settingsPath = $"{AppContext.BaseDirectory}/{SettingsFileName}";
+
+        string jsonString = File.ReadAllText(settingsPath);
+
+        JObject? jsonObject = JsonConvert.DeserializeObject<JObject>(jsonString);
+
+        JToken? sectionObject = jsonObject?[typeof(T).Name];
+
+        if (sectionObject == null)
+            return;
+
+        T? newSettings = sectionObject.ToObject<T?>();
+
         CopyAllProperty(newSettings, settings);
     }
+
+    public static async Task SaveToFileAsync<T>(this T settings) where T : IWritableSettings
+    {
+        string settingsPath = $"{AppContext.BaseDirectory}/{SettingsFileName}";
+
+        string? jsonString = await File.ReadAllTextAsync(settingsPath);
+
+        if (jsonString.TryUpdateJsonObject(settings, out jsonString) is false)
+            return;
+
+        await File.WriteAllTextAsync(settingsPath, jsonString);
+    }
+
+    private static bool TryUpdateJsonObject<T>(this string inObject, T sectionObject, out string outObject)
+    {
+        JObject jsonObject = JsonConvert.DeserializeObject<JObject>(inObject) ?? new JObject();
+        JObject jsonSectionObject = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
+
+        if (JToken.DeepEquals(jsonObject[typeof(T).Name], jsonSectionObject) is true)
+        {
+            outObject = string.Empty;
+            return false;
+        }
+
+        jsonObject[typeof(T).Name] = jsonSectionObject;
+        outObject = JsonConvert.SerializeObject(jsonObject, Formatting.Indented);
+        return true;
+    }
+
     private static void CopyAllProperty<T>(T source, T target)
     {
-        var type = typeof(T);
-        foreach (var sourceProperty in type.GetProperties())
+        Type type = typeof(T);
+        foreach (PropertyInfo sourceProperty in type.GetProperties())
         {
-            var targetProperty = type.GetProperty(sourceProperty.Name);
-            targetProperty.SetValue(target, sourceProperty.GetValue(source, null), null);
+            PropertyInfo? targetProperty = type.GetProperty(sourceProperty.Name);
+            targetProperty?.SetValue(target, sourceProperty.GetValue(source, null), null);
         }
     }
 }

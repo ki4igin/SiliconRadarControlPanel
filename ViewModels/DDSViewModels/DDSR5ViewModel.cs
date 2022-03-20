@@ -1,137 +1,159 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR5ViewModel : DDSRegisterViewModel
 {
-
     #region NotifyProperty <bool> TXdataInvert
-    private bool _txdataInvert;
-    public bool TXdataInvert
+
+    private bool _txDataInvert;
+
+    public bool TxDataInvert
     {
-        get => _txdataInvert;
+        get => _txDataInvert;
         set =>
-            SetValue(ref _txdataInvert, value)
-            .Then(() => UpdateRegisterValue());
+            SetValue(ref _txDataInvert, value)
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _txRampClk = { "CLK DIV", "Txdata" };
-    public string[] TXrampClk { get => _txRampClk; }
+    public string[] TxRampClk { get; } = { "CLK DIV", "Txdata" };
 
     #region NotifyProperty <int> TXrampClkSelectIndex
-    private int _txRampClkSelectIndex = 0;
-    public int TXrampClkSelectIndex
+
+    private int _txRampClkSelectIndex;
+
+    public int TxRampClkSelectIndex
     {
         get => _txRampClkSelectIndex;
         set =>
             SetValue(ref _txRampClkSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> FSKRamp
+
     private bool _parabolicRamp;
+
     public bool ParabolicRamp
     {
         get => _parabolicRamp;
         set =>
             SetValue(ref _parabolicRamp, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _interrupt = {
+    public string[] Interrupt { get; } =
+    {
         "INTERRUPT OFF",
         "LOAD CHANNEL CONTINUE SWEEP",
         "NOT USED",
         "LOAD CHANNEL STOP SWEEP"
     };
-    public string[] Interrupt { get => _interrupt; }
 
     #region NotifyProperty <int> InterruptSelectIndex
-    private int _interruptSelectIndex = 0;
+
+    private int _interruptSelectIndex;
+
     public int InterruptSelectIndex
     {
         get => _interruptSelectIndex;
         set =>
             SetValue(ref _interruptSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> FSKRamp
-    private bool fskRamp;
+
+    private bool _fskRamp;
+
     public bool FSKRamp
     {
-        get => fskRamp;
+        get => _fskRamp;
         set =>
-            SetValue(ref fskRamp, value)
-            .Then(() => UpdateRegisterValue());
+            SetValue(ref _fskRamp, value)
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> DualRamp
+
     private bool _dualRamp;
+
     public bool DualRamp
     {
         get => _dualRamp;
         set =>
             SetValue(ref _dualRamp, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _devSel = { "1", "2" };
-    public string[] DevSel { get => _devSel; }
+    public string[] DevSel { get; } = { "1", "2" };
 
     #region NotifyProperty <int> DevSelSelectIndex
-    private int _devSelSelectIndex = 0;
+
+    private int _devSelSelectIndex;
+
     public int DevSelSelectIndex
     {
         get => _devSelSelectIndex;
         set =>
             SetValue(ref _devSelSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <int> DeviationOffsetWord
+
     private int _deviationOffsetWord;
+
     public int DeviationOffsetWord
     {
         get => _deviationOffsetWord;
         set =>
-            SetValueIf(ref _deviationOffsetWord, value, (v) => v is >= 0 and < 10)
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _deviationOffsetWord, value, v => v is >= 0 and < 10)
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <int> DeviationWord
+
     private int _deviationWord;
+
     public int DeviationWord
     {
         get => _deviationWord;
         set =>
-            SetValueIf(ref _deviationWord, value, (v) => v is >= -(1 << 15) and < (1 << 15))
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _deviationWord, value, v => v is >= -(1 << 15) and < (1 << 15))
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    public DDSR5ViewModel() : this(new Communication()) { }
-    public DDSR5ViewModel(Communication communication) : base(communication)
+    public DDSR5ViewModel()
     {
         ControlBits = 5;
         Title = "DEVIATION REGISTER (R5)";
     }
 
-    protected override void UpdateRegisterValue()
+    protected virtual void UpdateRegisterValue()
     {
-        var newValue =
-            (Convert.ToInt32(TXdataInvert) << 30) |
-            (TXrampClkSelectIndex << 29) |
+        int newValue =
+            (Convert.ToInt32(TxDataInvert) << 30) |
+            (TxRampClkSelectIndex << 29) |
             (Convert.ToInt32(ParabolicRamp) << 28) |
             (InterruptSelectIndex << 26) |
             (Convert.ToInt32(FSKRamp) << 25) |
@@ -145,15 +167,15 @@ public class DDSR5ViewModel : DDSRegisterViewModel
 
     protected override void UpdateBitFields(uint registerValue)
     {
-        TXdataInvert = Register.IsBitSet(registerValue, 30);
-        TXrampClkSelectIndex = Register.GetBitFiled(registerValue, 29, 1);
+        TxDataInvert = Register.IsBitSet(registerValue, 30);
+        TxRampClkSelectIndex = Register.GetBitFiled(registerValue, 29, 1);
         ParabolicRamp = Register.IsBitSet(registerValue, 28);
         InterruptSelectIndex = Register.GetBitFiled(registerValue, 26, 2);
         FSKRamp = Register.IsBitSet(registerValue, 25);
         DualRamp = Register.IsBitSet(registerValue, 24);
         DevSelSelectIndex = Register.GetBitFiled(registerValue, 23, 1);
         DeviationWord = Register.GetBitFiled(registerValue, 19, 4);
-        var temp = Register.GetBitFiled(registerValue, 3, 16);
+        int temp = Register.GetBitFiled(registerValue, 3, 16);
         DeviationWord = temp switch
         {
             < (2 << 15) => temp,

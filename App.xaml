@@ -1,7 +1,6 @@
 ﻿<Application x:Class="SiliconRadarControlPanel.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SiliconRadarControlPanel"
              xmlns:ddsvm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
              xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels"
              xmlns:v="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"

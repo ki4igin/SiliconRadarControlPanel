@@ -1,190 +1,218 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR3ViewModel : DDSRegisterViewModel
 {
-    private readonly string[] _negBleedCurrent = {
+    public string[] NegBleedCurrent { get; } =
+    {
         "3.73", "11.03", "25.25", "53.1",
         "109.7", "224.7", "454.7", "916.4"
     };
-    public string[] NegBleedCurrent { get => _negBleedCurrent; }
 
     #region NotifyProperty <int> NegBleedCurrentSelectIndex
-    private int _negBleedCurrentSelectIndex = 0;
+
+    private int _negBleedCurrentSelectIndex;
+
     public int NegBleedCurrentSelectIndex
     {
         get => _negBleedCurrentSelectIndex;
         set =>
             SetValue(ref _negBleedCurrentSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> NegBleedEnable
+
     private bool _negBleedEnable;
+
     public bool NegBleedEnable
     {
         get => _negBleedEnable;
         set =>
-            SetValue(ref _negBleedEnable, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _negBleedEnable, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> LOL
+
     private bool _lol;
+
     public bool LOL
     {
         get => _lol;
         set =>
-            SetValue(ref _lol, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _lol, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> NSel
+
     private bool _nSel;
+
     public bool NSel
     {
         get => _nSel;
         set =>
-            SetValue(ref _nSel, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _nSel, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> SdReset
+
     private bool _sdReset;
+
     public bool SdReset
     {
         get => _sdReset;
         set =>
-            SetValue(ref _sdReset, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _sdReset, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _rampMode = {
+    public string[] RampMode { get; } =
+    {
         "CONTINUOUS SAWTOOTH",
         "CONTINUOUS TRIANGULAR",
         "SINGLE SAWTOOTH BURST",
         "SINGLE RAMP BURST"
     };
-    public string[] RampMode { get => _rampMode; }
 
     #region NotifyProperty <int> RampModeSelectIndex
-    private int _rampModeSelectIndex = 0;
+
+    private int _rampModeSelectIndex;
+
     public int RampModeSelectIndex
     {
         get => _rampModeSelectIndex;
         set =>
             SetValue(ref _rampModeSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> PSK
+
     private bool _psk;
+
     public bool PSK
     {
         get => _psk;
         set =>
-            SetValue(ref _psk, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _psk, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> FSK
+
     private bool _fsk;
+
     public bool FSK
     {
         get => _fsk;
         set =>
-            SetValue(ref _fsk, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _fsk, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _ldp = {
+    public string[] LDP { get; } =
+    {
         "14ns",
         "6ns"
     };
-    public string[] LDP { get => _ldp; }
 
     #region NotifyProperty <int> LDPSelectIndex
-    private int _ldpSelectIndex = 0;
+
+    private int _ldpSelectIndex;
+
     public int LDPSelectIndex
     {
         get => _ldpSelectIndex;
         set =>
             SetValue(ref _ldpSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _pdPolarity = {
+    public string[] PDPolarity { get; } =
+    {
         "N",
         "P"
     };
-    public string[] PDPolarity { get => _pdPolarity; }
 
     #region NotifyProperty <int> PDPolaritySelectIndex
-    private int _pdPolaritySelectIndex = 0;
+
+    private int _pdPolaritySelectIndex;
+
     public int PDPolaritySelectIndex
     {
         get => _pdPolaritySelectIndex;
         set =>
             SetValue(ref _pdPolaritySelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> PowerDown
+
     private bool _powerDown;
+
     public bool PowerDown
     {
         get => _powerDown;
         set =>
-            SetValue(ref _powerDown, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _powerDown, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> CPThreeState
+
     private bool _cpThreeState;
+
     public bool CPThreeState
     {
         get => _cpThreeState;
         set =>
-            SetValue(ref _cpThreeState, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _cpThreeState, value).Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <bool> CounterReset
+
     private bool _counterReset;
+
     public bool CounterReset
     {
         get => _counterReset;
         set =>
-            SetValue(ref _counterReset, value).
-            Then(() => UpdateRegisterValue());
+            SetValue(ref _counterReset, value).Then(UpdateRegisterValue);
     }
-    #endregion    
 
-    public DDSR3ViewModel() : this(new Communication()) { }
-    public DDSR3ViewModel(Communication communication) : base(communication)
+    #endregion
+
+    public DDSR3ViewModel()
     {
         ControlBits = 3;
         Title = "FUNCTION REGISTER (R3)";
     }
 
-    protected override void UpdateRegisterValue()
+    protected virtual void UpdateRegisterValue()
     {
-        var newValue =
+        int newValue =
             (NegBleedCurrentSelectIndex << 22) |
             (Convert.ToInt32(NegBleedEnable) << 21) |
             (Convert.ToInt32(LOL) << 16) |
@@ -217,6 +245,5 @@ public class DDSR3ViewModel : DDSRegisterViewModel
         PowerDown = Register.IsBitSet(registerValue, 5);
         CPThreeState = Register.IsBitSet(registerValue, 4);
         CounterReset = Register.IsBitSet(registerValue, 3);
-
     }
 }

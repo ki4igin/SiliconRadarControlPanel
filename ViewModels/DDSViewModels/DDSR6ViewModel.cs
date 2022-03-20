@@ -1,46 +1,48 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
-using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSR6ViewModel : DDSRegisterViewModel
 {
-    private readonly string[] _stepSel = { "1", "2" };
-    public string[] StepSel { get => _stepSel; }
+    public string[] StepSel { get; } = { "1", "2" };
 
     #region NotifyProperty <int> StepSelSelectIndex
-    private int _stepSelSelectIndex = 0;
+
+    private int _stepSelSelectIndex;
+
     public int StepSelSelectIndex
     {
         get => _stepSelSelectIndex;
         set =>
             SetValue(ref _stepSelSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
-    #endregion    
+
+    #endregion
 
     #region NotifyProperty <int> StepWord
-    private int _stepWord = 0;
+
+    private int _stepWord;
+
     public int StepWord
     {
         get => _stepWord;
         set =>
-            SetValueIf(ref _stepWord, value, (v) => v is >= 0 and < (2 << 20))
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _stepWord, value, v => v is >= 0 and < (2 << 20))
+                .Then(UpdateRegisterValue);
     }
-    #endregion  
 
-    public DDSR6ViewModel() : this(new Communication()) { }
-    public DDSR6ViewModel(Communication communication) : base(communication)
+    #endregion
+
+    public DDSR6ViewModel()
     {
         ControlBits = 6;
         Title = "STEP REGISTER (R6)";
     }
 
-    protected override void UpdateRegisterValue()
+    protected virtual void UpdateRegisterValue()
     {
-        var newValue =
+        int newValue =
             (StepSelSelectIndex << 23) |
             (StepWord << 3) |
             ControlBits;

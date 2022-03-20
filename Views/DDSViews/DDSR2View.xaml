@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SiliconRadarControlPanel.Views.DDSViews"
              xmlns:vm="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
              xmlns:uc="clr-namespace:SiliconRadarControlPanel.UserControls"
              mc:Ignorable="d"
@@ -17,7 +16,7 @@
         <ResourceDictionary Source="DDSStyles.xaml" />
     </UserControl.Resources>
     <GroupBox Header="{Binding Title}">
-        <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <uc:Grid32X2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <TextBlock Grid.Column="0"
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
@@ -157,6 +156,6 @@
                     Grid.Row="1"
                     BorderBrush="Black"
                     BorderThickness="0,1,0,1" />
-        </uc:Grid32x2>
+        </uc:Grid32X2>
     </GroupBox>
 </UserControl>

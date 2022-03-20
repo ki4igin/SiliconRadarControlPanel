@@ -1,6 +1,6 @@
-﻿using SiliconRadarControlPanel.Commands.Base;
+﻿using Microsoft.Extensions.Options;
 using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
+using SiliconRadarControlPanel.Settings;
 using SiliconRadarControlPanel.ViewModels.Base;
 using System;
 
@@ -8,6 +8,8 @@ namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 public class DDSViewModel : TitledViewModel, IDisposable
 {
+    private readonly DDSSettings _ddsSettings;
+
     public DDSR0ViewModel DDSR0ViewModel { get; init; }
     public DDSR1ViewModel DDSR1ViewModel { get; init; }
     public DDSR2ViewModel DDSR2ViewModel { get; init; }
@@ -17,36 +19,37 @@ public class DDSViewModel : TitledViewModel, IDisposable
     public DDSR6ViewModel DDSR6ViewModel { get; init; }
     public DDSR7ViewModel DDSR7ViewModel { get; init; }
 
-    //public DDSViewModel() : this(new Communication()) { }
-
-    public DDSViewModel(Communication communication)
+    public DDSViewModel() :
+        this(new OptionsWrapper<DDSSettings>(new DDSSettings()))
     {
-        DDSModel ddsModel = new(0, 0, 0, 0, 0, 0, 0, 0);
-        ddsModel.Read();
-        DDSR0ViewModel = new DDSR0ViewModel(communication) { RegisterValue = ddsModel.R0 };
-        DDSR1ViewModel = new DDSR1ViewModel(communication) { RegisterValue = ddsModel.R1 };
-        DDSR2ViewModel = new DDSR2ViewModel(communication) { RegisterValue = ddsModel.R2 };
-        DDSR3ViewModel = new DDSR3ViewModel(communication) { RegisterValue = ddsModel.R3 };
-        DDSR4ViewModel = new DDSR4ViewModel(communication) { RegisterValue = ddsModel.R4 };
-        DDSR5ViewModel = new DDSR5ViewModel(communication) { RegisterValue = ddsModel.R5 };
-        DDSR6ViewModel = new DDSR6ViewModel(communication) { RegisterValue = ddsModel.R6 };
-        DDSR7ViewModel = new DDSR7ViewModel(communication) { RegisterValue = ddsModel.R7 };
     }
 
-    public record DDSModel(uint R0, uint R1, uint R2, uint R3, uint R4, uint R5, uint R6, uint R7) : ISettings;
+    public DDSViewModel(IOptions<DDSSettings> options)
+    {
+        _ddsSettings = options.Value;
+        DDSR0ViewModel = new DDSR0ViewModel { RegisterValue = _ddsSettings.R0 };
+        DDSR1ViewModel = new DDSR1ViewModel { RegisterValue = _ddsSettings.R1 };
+        DDSR2ViewModel = new DDSR2ViewModel { RegisterValue = _ddsSettings.R2 };
+        DDSR3ViewModel = new DDSR3ViewModel { RegisterValue = _ddsSettings.R3 };
+        DDSR4ViewModel = new DDSR4ViewModel { RegisterValue = _ddsSettings.R4 };
+        DDSR5ViewModel = new DDSR5ViewModel { RegisterValue = _ddsSettings.R5 };
+        DDSR6ViewModel = new DDSR6ViewModel { RegisterValue = _ddsSettings.R6 };
+        DDSR7ViewModel = new DDSR7ViewModel { RegisterValue = _ddsSettings.R7 };
+    }
 
     public void Dispose()
     {
-        DDSModel ddsModel = new(
-            DDSR0ViewModel.RegisterValue,
-            DDSR1ViewModel.RegisterValue,
-            DDSR2ViewModel.RegisterValue,
-            DDSR3ViewModel.RegisterValue,
-            DDSR4ViewModel.RegisterValue,
-            DDSR5ViewModel.RegisterValue,
-            DDSR6ViewModel.RegisterValue,
-            DDSR7ViewModel.RegisterValue
-        );
-        ddsModel.Save();
+        _ddsSettings.R0 = DDSR0ViewModel.RegisterValue;
+        _ddsSettings.R1 = DDSR1ViewModel.RegisterValue;
+        _ddsSettings.R2 = DDSR2ViewModel.RegisterValue;
+        _ddsSettings.R3 = DDSR3ViewModel.RegisterValue;
+        _ddsSettings.R4 = DDSR4ViewModel.RegisterValue;
+        _ddsSettings.R5 = DDSR5ViewModel.RegisterValue;
+        _ddsSettings.R6 = DDSR6ViewModel.RegisterValue;
+        _ddsSettings.R7 = DDSR7ViewModel.RegisterValue;
+
+        _ddsSettings.SaveToFile();
+        
+        GC.SuppressFinalize(this);
     }
 }

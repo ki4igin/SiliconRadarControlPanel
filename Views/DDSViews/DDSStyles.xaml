@@ -51,21 +51,11 @@
                     <t:ButtonChrome x:Name="Chrome" SnapsToDevicePixels="true" Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}" RenderMouseOver="{TemplateBinding IsMouseOver}"
                             RenderPressed="{TemplateBinding IsPressed}">
-                        <!-- Remove ToggleButton appearance; we still need the ToggleButton because it displays the content.
-                        <Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-                            <Path x:Name="Arrow" Fill="Black" HorizontalAlignment="Center" Margin="3,1,0,0" VerticalAlignment="Center" Data="{StaticResource DownArrowGeometry}"/>
-                        </Grid>
-                        -->
                     </t:ButtonChrome>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="RenderPressed" TargetName="Chrome" Value="true" />
                         </Trigger>
-                        <!-- Remove ToggleButton appearance trigger
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Fill" TargetName="Arrow" Value="#AFAFAF"/>
-                        </Trigger>
-                        -->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -143,18 +133,15 @@
                     </Border>
                 </t:SystemDropShadowChrome>
             </Popup>
-            <t:ListBoxChrome x:Name="Border" Grid.ColumnSpan="2" Background="{TemplateBinding Background}"
+            <t:ListBoxChrome x:Name="Border" Grid.ColumnSpan="2" Grid.Column="0" Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                     RenderFocused="{TemplateBinding IsKeyboardFocusWithin}"
                     RenderMouseOver="{TemplateBinding IsMouseOver}" />
-            <TextBox x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}"
-                    Style="{StaticResource ComboBoxEditableTextBox}"
-                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                    IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" />
-            <!-- Remove the ToggleButton button; now you make the textbox clickable....
-                <ToggleButton Style="{StaticResource ComboBoxToggleButton}" Grid.Column="1" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
-            -->
+            <TextBox Grid.Column="0" x:Name="PART_EditableTextBox" Margin="{TemplateBinding Padding}"
+                     Style="{StaticResource ComboBoxEditableTextBox}"
+                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                     IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" />
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsKeyboardFocusWithin" Value="true">

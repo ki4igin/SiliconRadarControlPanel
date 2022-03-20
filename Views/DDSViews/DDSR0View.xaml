@@ -12,14 +12,11 @@
     <d:UserControl.DataContext>
         <vm:DDSR0ViewModel />
     </d:UserControl.DataContext>
-    <!--<UserControl.DataContext>
-        
-    </UserControl.DataContext>-->
     <UserControl.Resources>
         <ResourceDictionary Source="DDSStyles.xaml" />
     </UserControl.Resources>
     <GroupBox Header="{Binding Title}">
-        <uc:Grid32x2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <uc:Grid32X2 RegisterValue="{Binding Path=RegisterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <uc:TextBlockRotate Grid.Column="0"
                                 Grid.Row="0"
                                 Text="RAMP ON" />
@@ -106,6 +103,6 @@
                     BorderBrush="Black"
                     BorderThickness="0,1,0,1" />
 
-        </uc:Grid32x2>
+        </uc:Grid32X2>
     </GroupBox>
 </UserControl>

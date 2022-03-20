@@ -1,5 +1,4 @@
 ﻿using SiliconRadarControlPanel.Infrastructure;
-using SiliconRadarControlPanel.Services;
 using System;
 
 namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
@@ -7,39 +6,48 @@ namespace SiliconRadarControlPanel.ViewModels.DDSViewModels;
 public class DDSR0ViewModel : DDSRegisterViewModel
 {
     #region NotifyProperty <bool> RampOn
+
     private bool _rampOn;
+
     public bool RampOn
     {
         get => _rampOn;
         set =>
             SetValue(ref _rampOn, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <int> IntegerValue
+
     private int _integerValue;
+
     public int IntegerValue
     {
         get => _integerValue;
         set =>
-            SetValueIf(ref _integerValue, value, (v) => v is >= 0 and < (2 << 12))
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _integerValue, value, v => v is >= 0 and < (2 << 12))
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
     #region NotifyProperty <int> FractionalValue
+
     private int _fractionalValue;
+
     public int FractionalValue
     {
         get => _fractionalValue;
         set =>
-            SetValueIf(ref _fractionalValue, value, (v) => v is >= 0 and < (2 << 12))
-            .Then(() => UpdateRegisterValue());
+            SetValueIf(ref _fractionalValue, value, v => v is >= 0 and < (2 << 12))
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
 
-    private readonly string[] _muxControl =
+    public string[] MuxControl { get; } =
     {
         "THREE-STATE OUTPUT",
         "DV DD",
@@ -58,28 +66,31 @@ public class DDSR0ViewModel : DDSRegisterViewModel
         "N DIVIDER/2",
         "READBACK TO MUXOUT"
     };
-    public string[] MuxControl { get => _muxControl; }
 
     #region NotifyProperty <int> MuxControlSelectIndex
-    private int _muxControlSelectIndex = 0;
+
+    private int _muxControlSelectIndex;
+
     public int MuxControlSelectIndex
     {
         get => _muxControlSelectIndex;
         set =>
             SetValue(ref _muxControlSelectIndex, value)
-            .Then(() => UpdateRegisterValue());
+                .Then(UpdateRegisterValue);
     }
+
     #endregion
-    public DDSR0ViewModel() : this(new Communication()) { }
-    public DDSR0ViewModel(Communication communication) : base(communication)
+
+
+    public DDSR0ViewModel()
     {
         ControlBits = 0;
         Title = "FRAC/INT REGISTER (R0)";
     }
 
-    protected override void UpdateRegisterValue()
+    protected virtual void UpdateRegisterValue()
     {
-        var newValue =
+        int newValue =
             (Convert.ToInt32(RampOn) << 31) |
             (MuxControlSelectIndex << 27) |
             (IntegerValue << 15) |

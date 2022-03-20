@@ -98,7 +98,7 @@ public class SimpleCommand<T> : CommandBase
         if (commandTypeConverter.CanConvertFrom(parameterType))
             return (T)commandTypeConverter.ConvertFrom(parameter)!;
 
-        TypeConverter? parameterConverter = TypeDescriptor.GetConverter(parameterType);
+        TypeConverter parameterConverter = TypeDescriptor.GetConverter(parameterType);
         if (parameterConverter.CanConvertTo(commandType))
             return (T)parameterConverter.ConvertFrom(parameter)!;
 
