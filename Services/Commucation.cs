@@ -46,42 +46,17 @@ public class Communication
         string[] portNames = SerialPort.GetPortNames();
         foreach (string? portName in portNames)
         {
+            Log.Information("Попытка подключиться к плате через {portName}.....", portName);
+            
             if (Connect(portName) is false)
                 continue;
             
+            Log.Information("Успех");
             IsConnected = true;
             break;
         }
 
         return IsConnected;
-    }
-
-    private bool Connect(string portName)
-    {
-        _serialPort.PortName = portName;
-        if (_serialPort.TryOpen() is false)
-            return false;
-
-        Log.Information("Попытка подключиться к плате через {portName}.....", portName);
-        const string testCommand = "test";
-        SendCommand(testCommand);
-        byte[] rxBuffer = new byte[testCommand.Length];
-
-        if (_serialPort.TryRead(rxBuffer, testCommand.Length) is false)
-        {
-            _serialPort.Close();
-            return false;
-        }
-
-        string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
-        if (string.Equals(testCommand, rxCommand))
-        {
-            Log.Information("Успех");
-            return true;
-        }
-
-        _serialPort.Close();
-        return false;
     }
 
     public async Task<bool> ConnectAsync()
@@ -91,31 +66,14 @@ public class Communication
         string[] portNames = SerialPort.GetPortNames();
         foreach (string? portName in portNames)
         {
-            _serialPort.PortName = portName;
-            if (_serialPort.TryOpen() is false)
-                continue;
-
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
-            _serialPort.DiscardInBuffer();
-            const string testCommand = "test";
-            SendCommand(testCommand);
-            byte[] rxBuffer = new byte[testCommand.Length];
-
-            if (await _serialPort.TryReadAsync(rxBuffer, testCommand.Length) is false)
-            {
-                _serialPort.Close();
+            
+            if (await  ConnectAsync(portName) is false)
                 continue;
-            }
-
-            string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
-            if (string.Equals(testCommand, rxCommand))
-            {
-                Log.Information("Успех");
-                IsConnected = true;
-                break;
-            }
-
-            _serialPort.Close();
+            
+            Log.Information("Успех");
+            IsConnected = true;
+            break;
         }
 
         return IsConnected;
@@ -140,5 +98,52 @@ public class Communication
     {
         byte[] sendBytes = BitConverter.GetBytes(value);
         _serialPort.Write(sendBytes, 0, sendBytes.Length);
+    }
+    
+    private bool Connect(string portName)
+    {
+        _serialPort.PortName = portName;
+        if (_serialPort.TryOpen() is false)
+            return false;
+
+        
+        const string testCommand = "test";
+        SendCommand(testCommand);
+        byte[] rxBuffer = new byte[testCommand.Length];
+
+        if (_serialPort.TryRead(rxBuffer, testCommand.Length) is false)
+        {
+            _serialPort.Close();
+            return false;
+        }
+
+        string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
+        if (string.Equals(testCommand, rxCommand))
+            return true;
+
+        _serialPort.Close();
+        return false;
+    }
+    
+    private async Task<bool> ConnectAsync(string portName)
+    {
+        _serialPort.PortName = portName;
+        if (_serialPort.TryOpen() is false)
+            return false;
+
+        _serialPort.DiscardInBuffer();
+        const string testCommand = "test";
+        SendCommand(testCommand);
+        byte[] rxBuffer = new byte[testCommand.Length];
+
+        if (await _serialPort.TryReadAsync(rxBuffer, testCommand.Length) is true)
+        {
+            string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
+            if (string.Equals(testCommand, rxCommand))
+                return true;
+        }
+
+        _serialPort.Close();
+        return false;
     }
 }
