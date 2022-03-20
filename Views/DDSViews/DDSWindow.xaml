@@ -1,36 +1,52 @@
-﻿<Window x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="DDSWindow"
-        ResizeMode="NoResize"
-        Height="600"
-        Width="800"
-        DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=DDSViewModel}">
+﻿<Window
+    x:Class="SiliconRadarControlPanel.Views.DDSViews.DDSWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ddsviewmodels="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:usercontrols="clr-namespace:SiliconRadarControlPanel.UserControls"
+    Title="DDSWindow"
+    Width="850"
+    Height="600"
+    DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=DDSViewModel}"
+    ResizeMode="NoResize"
+    mc:Ignorable="d">
     <Window.Resources>
-        <ResourceDictionary Source="DDSStyles.xaml" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DDSStyles.xaml" />
+                <ResourceDictionary x:Name="sd">
+                    <Style x:Key="MyButton" TargetType="Button">
+                        <Setter Property="Background" Value="#952525" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <GroupBox Header="500">
+                                        <usercontrols:Grid32X2 >
+                                            
+                                        </usercontrols:Grid32X2>
+                                    </GroupBox>                                    
+                                </ControlTemplate>                            
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
-    <ScrollViewer >
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <ContentControl Content="{Binding DDSR0ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR1ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR2ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR3ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR4ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR5ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR6ViewModel}"
-                            Margin="5,5,5,0" />
-            <ContentControl Content="{Binding DDSR7ViewModel}"
-                            Margin="5,5,5,0" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR0ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR1ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR2ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR3ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR4ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR5ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR6ViewModel}" />
+            <ContentControl Margin="5,5,5,0" Content="{Binding DDSR7ViewModel}" />
+
         </StackPanel>
     </ScrollViewer>
 </Window>

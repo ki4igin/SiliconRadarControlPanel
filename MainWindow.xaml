@@ -52,6 +52,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBox Text="0" />
+            <RepeatButton Grid.Row="1"/>
         </Grid>
         <Canvas />
 

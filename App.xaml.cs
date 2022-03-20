@@ -26,7 +26,7 @@ public partial class App
             .ConfigureAppConfiguration((_, config) =>
             {
                 config.Sources.Clear();
-                config.AddJsonFile("settings.json");
+                config.AddJsonFile("settings.json", true);
             })
             .ConfigureServices(ConfigureServices);
 
