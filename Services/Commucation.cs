@@ -96,6 +96,8 @@ public class Communication
 
     public void SendRegisterValue(uint value)
     {
+        SendCommand("plwr");
+
         byte[] sendBytes = BitConverter.GetBytes(value);
         _serialPort.Write(sendBytes, 0, sendBytes.Length);
     }
