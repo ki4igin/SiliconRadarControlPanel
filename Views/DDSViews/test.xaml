@@ -10,10 +10,4 @@
     Height="450"
     mc:Ignorable="d">
 
-    <local:DDSR8View>
-        
-
-    </local:DDSR8View>
-
-
 </Window>
