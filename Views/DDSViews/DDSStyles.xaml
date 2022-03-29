@@ -315,38 +315,38 @@
                 <ColumnDefinition />
                 <!--<ColumnDefinition Width="20" />-->
             </Grid.ColumnDefinitions>
-            <!--<Border
+            <Border
                 x:Name="Border"
                 Grid.ColumnSpan="2"
                 BorderThickness="1"
                 CornerRadius="2">
-                <Border.BorderBrush>
+                <!--<Border.BorderBrush>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <GradientStop Offset="0" Color="{DynamicResource BorderLightColor}" />
                         <GradientStop Offset="1" Color="{DynamicResource BorderDarkColor}" />
                     </LinearGradientBrush>
-                </Border.BorderBrush>
-                <Border.Background>
+                </Border.BorderBrush>-->
+                <Border.Background>                    
 
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <LinearGradientBrush.GradientStops>
                             <GradientStopCollection>
                                 <GradientStop Color="{DynamicResource ControlLightColor}" />
-                                <GradientStop Offset="1.0" Color="{DynamicResource ControlMediumColor}" />
+                                <GradientStop Offset="1.0" Color="{DynamicResource ControlLightColor}" />
                             </GradientStopCollection>
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
 
                 </Border.Background>
-            </Border>-->
-            <Border
+            </Border>
+            <!--<Border
                 Grid.Column="0"
                 Margin="1"
                 CornerRadius="2,0,0,2">
                 <Border.Background>
                     <SolidColorBrush Color="{DynamicResource ContentColorLight}" />
                 </Border.Background>
-            </Border>
+            </Border>-->
             <!--<Path
                 x:Name="Arrow"
                 Grid.Column="1"
@@ -358,7 +358,7 @@
                 </Path.Fill>
             </Path>-->
             <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup x:Name="CommonStates">
+                <!--<VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
@@ -381,8 +381,8 @@
                             </ColorAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
-                </VisualStateGroup>
-                <VisualStateGroup x:Name="CheckStates">
+                </VisualStateGroup>-->
+                <!--<VisualStateGroup x:Name="CheckStates">
                     <VisualState x:Name="Checked">
                         <Storyboard>
                             <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)">
@@ -392,7 +392,7 @@
                     </VisualState>
                     <VisualState x:Name="Unchecked" />
                     <VisualState x:Name="Indeterminate" />
-                </VisualStateGroup>
+                </VisualStateGroup>-->
             </VisualStateManager.VisualStateGroups>
         </Grid>
     </ControlTemplate>
