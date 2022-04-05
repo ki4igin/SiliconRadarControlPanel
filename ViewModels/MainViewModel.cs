@@ -31,7 +31,7 @@ public class MainViewModel : TitledViewModel
     private CommandAsync? _connectAsync;
 
     public CommandAsync ConnectAsync => _connectAsync ??= new(
-        execute: async (_, _) => { IsConnected = await _communication.ConnectAsync(); },
+        execute: async (progress, _) => { IsConnected = await _communication.ConnectAsync(progress); },
         canExecute: () => IsConnected == false
     );
 

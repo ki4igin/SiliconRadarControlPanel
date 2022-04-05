@@ -54,6 +54,7 @@
             <TextBox Text="0" />
             <RepeatButton Grid.Row="1"/>
         </Grid>
+        <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Value="{Binding ConnectAsync.ProgressValue}"/>
         <Canvas />
 
     </DockPanel>

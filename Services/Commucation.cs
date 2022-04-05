@@ -3,8 +3,10 @@ using Serilog;
 using SiliconRadarControlPanel.Infrastructure;
 using SiliconRadarControlPanel.Settings;
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SiliconRadarControlPanel.Services;
@@ -12,6 +14,8 @@ namespace SiliconRadarControlPanel.Services;
 public class Communication
 {
     private readonly SerialPort _serialPort;
+    private readonly Thread _connectionThread;
+    private readonly ComPortSettings _comPortSettings;
 
     public bool IsConnected { get; private set; }
 
@@ -22,29 +26,27 @@ public class Communication
 
     public Communication(IOptions<ComPortSettings> options)
     {
-        ComPortSettings comPortSettings = options.Value;
+        _comPortSettings = options.Value;        
         _serialPort = new SerialPort
         {
-            PortName = comPortSettings.PortName,
-            BaudRate = comPortSettings.BaudRate,
+            PortName = _comPortSettings.PortName,
+            BaudRate = _comPortSettings.BaudRate,
             DataBits = 8,
-            ReadTimeout = 2000,
-            WriteTimeout = 2000
+            ReadTimeout = 1000,
+            WriteTimeout = 1000
         };
+        _connectionThread = new Thread(ConnectionProcess);
     }
 
     public bool Connect()
     {
         IsConnected = false;
 
-        if (Connect(_serialPort.PortName) is true)
-        {
-            IsConnected = true;
-            return IsConnected;
-        }
+        List<string> portNames = new(SerialPort.GetPortNames());
+        portNames.Remove(_serialPort.PortName);
+        portNames.Insert(0, _serialPort.PortName);
 
-        string[] portNames = SerialPort.GetPortNames();
-        foreach (string? portName in portNames)
+        foreach (string portName in portNames)
         {
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
             
@@ -59,14 +61,19 @@ public class Communication
         return IsConnected;
     }
 
-    public async Task<bool> ConnectAsync()
+    public async Task<bool> ConnectAsync(IProgress<double> progress)
     {
-        IsConnected = false;
+        IsConnected = false;        
 
-        string[] portNames = SerialPort.GetPortNames();
-        foreach (string? portName in portNames)
+        List<string> portNames = new(SerialPort.GetPortNames());
+        portNames.Remove(_serialPort.PortName);
+        portNames.Insert(0, _serialPort.PortName);
+
+        int cnt = 0;
+        foreach (string portName in portNames)
         {
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
+            progress.Report(cnt++ / portNames.Count);
             
             if (await  ConnectAsync(portName) is false)
                 continue;
@@ -83,9 +90,10 @@ public class Communication
     {
         if (IsConnected is false)
             return;
-        
-        _serialPort.Close();
+
         IsConnected = false;
+        _connectionThread.Join();
+        _serialPort.Close();        
     }
 
     public void SendCommand(string command)
@@ -134,6 +142,19 @@ public class Communication
             return false;
 
         _serialPort.DiscardInBuffer();
+
+        if (await TestConnectionAsync() is true)
+        {
+            _connectionThread.Start();
+            return true;
+        }
+
+        _serialPort.Close();
+        return false;
+    }
+
+    private async Task<bool> TestConnectionAsync()
+    {
         const string testCommand = "test";
         SendCommand(testCommand);
         byte[] rxBuffer = new byte[testCommand.Length];
@@ -145,7 +166,15 @@ public class Communication
                 return true;
         }
 
-        _serialPort.Close();
         return false;
+    }
+
+    private async void ConnectionProcess()
+    {
+        while (IsConnected)
+        {
+            IsConnected = await TestConnectionAsync();
+        }
+        _serialPort.Close();
     }
 }
