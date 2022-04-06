@@ -37,7 +37,6 @@ public class MainViewModel : TitledViewModel
 
     #endregion
 
-
     #region Command DisConnect
 
     private SimpleCommand? _disconnect;
@@ -52,7 +51,6 @@ public class MainViewModel : TitledViewModel
     );
 
     #endregion
-
 
     #region Command OpenDDSWindow
 
@@ -97,6 +95,7 @@ public class MainViewModel : TitledViewModel
     {
         Title = "Title";
         _communication = communication;
+        _communication.IsConnectedChanged += () => IsConnected = _communication.IsConnected;
         _ddsViewModel = ddsViewModel;
         _comPortSettings = options.Value;
     }

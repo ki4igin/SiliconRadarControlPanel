@@ -4,6 +4,7 @@ using SiliconRadarControlPanel.Infrastructure;
 using SiliconRadarControlPanel.Settings;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
@@ -13,11 +14,22 @@ namespace SiliconRadarControlPanel.Services;
 
 public class Communication
 {
-    private readonly SerialPort _serialPort;
-    private readonly Thread _connectionThread;
+    private readonly SerialPort _serialPort;    
     private readonly ComPortSettings _comPortSettings;
 
-    public bool IsConnected { get; private set; }
+
+    private bool _isConnected;
+    public bool IsConnected
+    {
+        get => _isConnected;
+        private set
+        {
+            _isConnected = value;
+            IsConnectedChanged?.Invoke();
+        }
+    }
+
+    public event Action? IsConnectedChanged;
 
     public Communication() :
         this(new OptionsWrapper<ComPortSettings>(new ComPortSettings()))
@@ -26,7 +38,7 @@ public class Communication
 
     public Communication(IOptions<ComPortSettings> options)
     {
-        _comPortSettings = options.Value;        
+        _comPortSettings = options.Value;
         _serialPort = new SerialPort
         {
             PortName = _comPortSettings.PortName,
@@ -35,7 +47,6 @@ public class Communication
             ReadTimeout = 1000,
             WriteTimeout = 1000
         };
-        _connectionThread = new Thread(ConnectionProcess);
     }
 
     public bool Connect()
@@ -49,10 +60,10 @@ public class Communication
         foreach (string portName in portNames)
         {
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
-            
+
             if (Connect(portName) is false)
                 continue;
-            
+
             Log.Information("Успех");
             IsConnected = true;
             break;
@@ -63,23 +74,24 @@ public class Communication
 
     public async Task<bool> ConnectAsync(IProgress<double> progress)
     {
-        IsConnected = false;        
+        IsConnected = false;
 
         List<string> portNames = new(SerialPort.GetPortNames());
-        portNames.Remove(_serialPort.PortName);
-        portNames.Insert(0, _serialPort.PortName);
+        if (portNames.Remove(_serialPort.PortName) is true)
+            portNames.Insert(0, _serialPort.PortName);
 
-        int cnt = 0;
+        double cnt = 0;
         foreach (string portName in portNames)
         {
             Log.Information("Попытка подключиться к плате через {portName}.....", portName);
             progress.Report(cnt++ / portNames.Count);
-            
-            if (await  ConnectAsync(portName) is false)
+
+            if (await ConnectAsync(portName) is false)
                 continue;
-            
+
             Log.Information("Успех");
             IsConnected = true;
+            _ = Task.Run(ConnectionProcess);
             break;
         }
 
@@ -91,15 +103,14 @@ public class Communication
         if (IsConnected is false)
             return;
 
-        IsConnected = false;
-        _connectionThread.Join();
-        _serialPort.Close();        
+        IsConnected = false;        
+        _serialPort.Close();
     }
 
     public void SendCommand(string command)
     {
         byte[] sendBytes = Encoding.ASCII.GetBytes(command);
-        _serialPort.Write(sendBytes, 0, sendBytes.Length);
+       _serialPort.Write(sendBytes, 0, sendBytes.Length);
     }
 
     public void SendRegisterValue(uint value)
@@ -109,14 +120,14 @@ public class Communication
         byte[] sendBytes = BitConverter.GetBytes(value);
         _serialPort.Write(sendBytes, 0, sendBytes.Length);
     }
-    
+
     private bool Connect(string portName)
     {
         _serialPort.PortName = portName;
         if (_serialPort.TryOpen() is false)
             return false;
 
-        
+
         const string testCommand = "test";
         SendCommand(testCommand);
         byte[] rxBuffer = new byte[testCommand.Length];
@@ -134,7 +145,7 @@ public class Communication
         _serialPort.Close();
         return false;
     }
-    
+
     private async Task<bool> ConnectAsync(string portName)
     {
         _serialPort.PortName = portName;
@@ -144,8 +155,7 @@ public class Communication
         _serialPort.DiscardInBuffer();
 
         if (await TestConnectionAsync() is true)
-        {
-            _connectionThread.Start();
+        {            
             return true;
         }
 
@@ -156,7 +166,16 @@ public class Communication
     private async Task<bool> TestConnectionAsync()
     {
         const string testCommand = "test";
-        SendCommand(testCommand);
+
+        try
+        {
+            _serialPort.DiscardInBuffer();
+            SendCommand(testCommand);
+        } catch (InvalidOperationException)
+        {
+            return false;
+        }            
+
         byte[] rxBuffer = new byte[testCommand.Length];
 
         if (await _serialPort.TryReadAsync(rxBuffer, testCommand.Length) is true)
@@ -169,11 +188,38 @@ public class Communication
         return false;
     }
 
-    private async void ConnectionProcess()
+    private bool TestConnection()
+    {
+        const string testCommand = "test";
+
+        try
+        {
+            _serialPort.DiscardInBuffer();
+            SendCommand(testCommand);
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or IOException)
+        {
+            return false;
+        }
+
+        byte[] rxBuffer = new byte[testCommand.Length];
+
+        if (_serialPort.TryRead(rxBuffer, testCommand.Length) is true)
+        {
+            string rxCommand = Encoding.ASCII.GetString(rxBuffer, 0, testCommand.Length);
+            if (string.Equals(testCommand, rxCommand))
+                return true;
+        }
+
+        return false;
+    }
+
+    private void ConnectionProcess()
     {
         while (IsConnected)
         {
-            IsConnected = await TestConnectionAsync();
+            IsConnected = TestConnection();
+            Thread.Sleep(1000);
         }
         _serialPort.Close();
     }

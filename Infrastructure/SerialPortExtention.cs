@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.IO.Ports;
 using System.Threading.Tasks;
 
@@ -13,6 +14,10 @@ public static class SerialPortExtention
             serialPort.Open();
         }
         catch (UnauthorizedAccessException)
+        {
+            return false;
+        }
+        catch (FileNotFoundException)
         {
             return false;
         }
