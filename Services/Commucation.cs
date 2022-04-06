@@ -94,7 +94,7 @@ public class Communication
             _ = Task.Run(ConnectionProcess);
             break;
         }
-
+        progress.Report(1);
         return IsConnected;
     }
 

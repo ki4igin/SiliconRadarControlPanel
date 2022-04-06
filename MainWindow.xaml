@@ -54,7 +54,17 @@
             <TextBox Text="0" />
             <RepeatButton Grid.Row="1"/>
         </Grid>
-        <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Value="{Binding ConnectAsync.ProgressValue}"/>
+        <StatusBar DockPanel.Dock="Bottom">            
+            <StatusBarItem DockPanel.Dock="Right">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding ProgressBarValue, StringFormat=p0}" TextAlignment="Right" Width="40" />
+                    <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Width="120" Value="{Binding ProgressBarValue}">
+                    </ProgressBar>
+                </DockPanel>
+            </StatusBarItem>
+            <StatusBarItem Content="dsfsa" Margin="5,0"/>
+        </StatusBar>        
+        
         <Canvas />
 
     </DockPanel>

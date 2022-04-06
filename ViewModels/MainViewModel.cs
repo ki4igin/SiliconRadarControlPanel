@@ -6,6 +6,8 @@ using SiliconRadarControlPanel.ViewModels.DDSViewModels;
 using Microsoft.Extensions.Options;
 using SiliconRadarControlPanel.Settings;
 using SiliconRadarControlPanel.Infrastructure;
+using System;
+using Microsoft.Extensions.Logging;
 
 namespace SiliconRadarControlPanel.ViewModels;
 
@@ -31,7 +33,12 @@ public class MainViewModel : TitledViewModel
     private CommandAsync? _connectAsync;
 
     public CommandAsync ConnectAsync => _connectAsync ??= new(
-        execute: async (progress, _) => { IsConnected = await _communication.ConnectAsync(progress); },
+        execute: async (progress, _) => {
+            void handler(object? obj, double arg) => ProgressBarValue = arg;
+            progress.ProgressChanged += handler;
+            IsConnected = await _communication.ConnectAsync(progress);
+            progress.ProgressChanged -= handler;
+        },
         canExecute: () => IsConnected == false
     );
 
@@ -81,6 +88,14 @@ public class MainViewModel : TitledViewModel
 
     #endregion
 
+
+    #region NotifyProperty <double> ProgressBarValue
+    private double _progressBarValue;
+    public double ProgressBarValue { get => _progressBarValue; set => Set(ref _progressBarValue, value); }
+    #endregion
+
+
+
     #region SaveSettigns SaveSettigns
 
     private SimpleCommand? _saveSettings;
@@ -97,6 +112,6 @@ public class MainViewModel : TitledViewModel
         _communication = communication;
         _communication.IsConnectedChanged += () => IsConnected = _communication.IsConnected;
         _ddsViewModel = ddsViewModel;
-        _comPortSettings = options.Value;
+        _comPortSettings = options.Value;        
     }
 }
