@@ -10,7 +10,7 @@ public class SendRegisterValue : CommandBase
     
     public SendRegisterValue()
     {
-        _communication = App.Services.GetRequiredService<Communication>();
+        _communication = Ioc.Resolve<Communication>();
     }
 
     protected override bool CanExecute(object? parameter) =>

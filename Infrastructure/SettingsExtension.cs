@@ -12,7 +12,7 @@ public interface IReadableSettings { }
 
 public static class SettingsExtentions
 {
-    private const string SettingsFileName = App.SettingsFileName;
+    private const string SettingsFileName = Ioc.SettingsFileName;
 
     public static void SaveToFile<T>(this T settings) where T : IWritableSettings
     {

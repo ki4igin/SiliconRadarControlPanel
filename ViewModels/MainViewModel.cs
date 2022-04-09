@@ -34,10 +34,10 @@ public class MainViewModel : TitledViewModel
 
     public CommandAsync ConnectAsync => _connectAsync ??= new(
         execute: async (progress, _) => {
-            void handler(object? obj, double arg) => ProgressBarValue = arg;
-            progress.ProgressChanged += handler;
+            void Handler(object? obj, double arg) => ProgressBarValue = arg;
+            progress.ProgressChanged += Handler;
             IsConnected = await _communication.ConnectAsync(progress);
-            progress.ProgressChanged -= handler;
+            progress.ProgressChanged -= Handler;
         },
         canExecute: () => IsConnected == false
     );

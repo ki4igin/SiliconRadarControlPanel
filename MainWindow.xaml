@@ -62,7 +62,9 @@
                     </ProgressBar>
                 </DockPanel>
             </StatusBarItem>
-            <StatusBarItem Content="dsfsa" Margin="5,0"/>
+            <StatusBarItem>
+                <TextBlock x:Name="Status" Text="Hellowprldfadfadfasd"/>
+            </StatusBarItem>
         </StatusBar>        
         
         <Canvas />

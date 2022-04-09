@@ -5,6 +5,6 @@ namespace SiliconRadarControlPanel.ViewModels;
 
 internal class ViewModelLocator
 {
-    public static MainViewModel MainViewModel => App.Services.GetRequiredService<MainViewModel>();
-    public static DDSViewModel DDSViewModel => App.Services.GetRequiredService<DDSViewModel>();
+    public static MainViewModel MainViewModel => Ioc.Resolve<MainViewModel>();
+    public static DDSViewModel DDSViewModel => Ioc.Resolve<DDSViewModel>();
 }
