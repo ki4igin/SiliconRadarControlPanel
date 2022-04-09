@@ -1,17 +1,17 @@
 ﻿using SiliconRadarControlPanel.Commands.Base;
-using SiliconRadarControlPanel.ViewModels.Base;
 using SiliconRadarControlPanel.Services;
 using SiliconRadarControlPanel.Views.DDSViews;
 using SiliconRadarControlPanel.ViewModels.DDSViewModels;
 using Microsoft.Extensions.Options;
 using SiliconRadarControlPanel.Settings;
 using SiliconRadarControlPanel.Infrastructure;
-using System;
-using Microsoft.Extensions.Logging;
+using PropertyChanged;
 
 namespace SiliconRadarControlPanel.ViewModels;
 
-public class MainViewModel : TitledViewModel
+
+[AddINotifyPropertyChangedInterface]
+public class MainViewModel
 {
     private readonly Communication _communication;
     private DDSWindow? _ddsWindow;
@@ -76,22 +76,11 @@ public class MainViewModel : TitledViewModel
 
     #endregion
 
-    #region NotifyProperty <bool> IsConnected
-
-    private bool _isConnected;
-
-    public bool IsConnected
-    {
-        get => _isConnected;
-        set => Set(ref _isConnected, value);
-    }
-
-    #endregion
+    public bool IsConnected { get; set; }
 
 
     #region NotifyProperty <double> ProgressBarValue
-    private double _progressBarValue;
-    public double ProgressBarValue { get => _progressBarValue; set => Set(ref _progressBarValue, value); }
+    public double ProgressBarValue { get; set; }
     #endregion
 
 
@@ -108,7 +97,7 @@ public class MainViewModel : TitledViewModel
 
     public MainViewModel(Communication communication, DDSViewModel ddsViewModel, IOptions<ComPortSettings> options)
     {
-        Title = "Title";
+        // Title = "Title";
         _communication = communication;
         _communication.IsConnectedChanged += () => IsConnected = _communication.IsConnected;
         _ddsViewModel = ddsViewModel;

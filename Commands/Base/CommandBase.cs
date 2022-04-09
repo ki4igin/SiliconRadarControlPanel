@@ -29,7 +29,7 @@ public abstract class CommandBase : ICommand, INotifyPropertyChanged, IDisposabl
     #region INotifyPropertyChanged implementations
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    private void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+    public void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     protected bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = "")
