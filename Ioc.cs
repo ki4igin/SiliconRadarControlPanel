@@ -16,9 +16,9 @@ public static class Ioc
     public static StatusSink Status { get; set; } = new();
 
 
-    private static ServiceProvider? _provider;
+    private static readonly ServiceProvider? _provider;
 
-    public static void Init()
+    static Ioc()
     {
         ConfigurationBuilder config = new();
         config.Sources.Clear();
@@ -38,6 +38,8 @@ public static class Ioc
             .WriteTo.StatusSink(Status)
             .WriteTo.File("logs/myapp.txt")
             .CreateLogger();
+        
+        Log.Information("Start session");
     }
 
 }

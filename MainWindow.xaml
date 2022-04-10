@@ -51,7 +51,7 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBox Text="0" />
+            <TextBox Text="{Binding Counter}" />
             <RepeatButton Grid.Row="1"/>
         </Grid>
         <StatusBar DockPanel.Dock="Bottom">            

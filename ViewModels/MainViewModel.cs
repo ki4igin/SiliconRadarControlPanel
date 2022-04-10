@@ -80,17 +80,32 @@ public class MainViewModel
 
 
     #region NotifyProperty <double> ProgressBarValue
+
     public double ProgressBarValue { get; set; }
+
     #endregion
 
+    public int Counter
+    {
+        get => _counter;
+        set
+        {
+            if (value is > 30 and < 100)
+            {
+                _counter = value;    
+            }
+            
+        }
+    }
 
 
     #region SaveSettigns SaveSettigns
 
     private SimpleCommand? _saveSettings;
+    private int _counter;
 
     public SimpleCommand Save => _saveSettings ??= new(
-        () => _comPortSettings.SaveToFile()
+        () => Counter++
     );
 
     #endregion
