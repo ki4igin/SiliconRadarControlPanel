@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SiliconRadarControlPanel.ViewModels.DDSViewModels;
+﻿using SiliconRadarControlPanel.ViewModels.DDSViewModels;
 
 namespace SiliconRadarControlPanel.ViewModels;
 
