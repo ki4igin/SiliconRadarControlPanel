@@ -67,8 +67,8 @@ public class DDSR1ViewModel : DDSRegisterViewModel
         int phaseValue = Register.GetBitFiled(registerValue, 3, 12);
         PhaseValue = phaseValue switch
         {
-            < 2048 => phaseValue,
-            _ => phaseValue - 4096
+            < (1 << 11) => phaseValue,
+            _ => phaseValue - (1 << 12)
         };
     }
 }

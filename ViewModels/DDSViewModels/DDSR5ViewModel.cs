@@ -178,8 +178,8 @@ public class DDSR5ViewModel : DDSRegisterViewModel
         int temp = Register.GetBitFiled(registerValue, 3, 16);
         DeviationWord = temp switch
         {
-            < (2 << 15) => temp,
-            _ => temp - (2 << 16)
+            < (1 << 15) => temp,
+            _ => temp - (1 << 16)
         };
     }
 }
