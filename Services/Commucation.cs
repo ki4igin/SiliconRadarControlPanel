@@ -89,7 +89,7 @@ public class Communication
             if (await ConnectAsync(portName) is false)
                 continue;
 
-            Log.Information("Успех");
+            Log.Information("Плата подключена к {portName}", portName);
             IsConnected = true;
             _ = Task.Run(ConnectionProcess);
             break;

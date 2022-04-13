@@ -34,6 +34,12 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="13"
                        Text="13-BIT LSB FRACTIONAL VALUE (FRAC)" />
+            <TextBlock Grid.Column="4"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="13"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="DBB" />
             <TextBox Grid.Column="4"
                      Grid.Row="1"
                      Grid.ColumnSpan="13"
@@ -43,6 +49,12 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="12"
                        Text="12-BIT PHASE VALUE" />
+            <TextBlock Grid.Column="17"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="12"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="DBB" />
             <TextBox Grid.Column="17"
                      Grid.Row="1"
                      Grid.ColumnSpan="12"

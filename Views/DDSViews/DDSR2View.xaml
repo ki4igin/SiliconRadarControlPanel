@@ -33,6 +33,12 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="4"
                        Text="CP CURRENT&#xA;SETTING" />
+            <TextBlock Grid.Column="4"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="4"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="DBB" />
             <ComboBox Grid.Column="4"
                       Grid.Row="1"
                       Grid.ColumnSpan="4"
@@ -61,7 +67,7 @@
             <uc:TextBlockRotate Grid.Column="11"
                                 Grid.Row="0"
                                 FontSize="10"
-                                Text="REFERENCE&#xA;DOUBLER" />
+                                Text="REFERENCE&#xA;DOUBLER DBB" />
             <CheckBox Grid.Column="11"
                       Grid.Row="1"
                       IsChecked="{Binding ReferenceDoubler}" />
@@ -70,6 +76,12 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="5"
                        Text="5-BIT R COUNTER" />
+            <TextBlock Grid.Column="12"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="5"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="DBB" />
             <TextBox Grid.Column="12"
                      Grid.Row="1"
                      Grid.ColumnSpan="5"
@@ -79,6 +91,12 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="12"
                        Text="12-BIT CLK1 DIVIDER VALUE" />
+            <TextBlock Grid.Column="17"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="12"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Top"
+                       Text="DBB" />
             <TextBox Grid.Column="17"
                      Grid.Row="1"
                      Grid.ColumnSpan="12"

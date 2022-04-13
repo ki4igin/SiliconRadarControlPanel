@@ -149,7 +149,7 @@ public class DDSR7ViewModel : DDSRegisterViewModel
 
     public DDSR7ViewModel()
     {
-        ControlBits = 6;
+        ControlBits = 7;
         Title = "DELAY REGISTER (R7)";
     }
 

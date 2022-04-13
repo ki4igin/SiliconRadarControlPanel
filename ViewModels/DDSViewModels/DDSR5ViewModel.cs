@@ -174,7 +174,7 @@ public class DDSR5ViewModel : DDSRegisterViewModel
         FSKRamp = Register.IsBitSet(registerValue, 25);
         DualRamp = Register.IsBitSet(registerValue, 24);
         DevSelSelectIndex = Register.GetBitFiled(registerValue, 23, 1);
-        DeviationWord = Register.GetBitFiled(registerValue, 19, 4);
+        DeviationOffsetWord = Register.GetBitFiled(registerValue, 19, 4);
         int temp = Register.GetBitFiled(registerValue, 3, 16);
         DeviationWord = temp switch
         {
