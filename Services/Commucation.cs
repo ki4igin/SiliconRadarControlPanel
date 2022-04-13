@@ -221,6 +221,9 @@ public class Communication
             IsConnected = TestConnection();
             Thread.Sleep(1000);
         }
+
+        var portName = _serialPort.PortName;
+        Log.Information("Плата отключена от {portName}", portName);
         _serialPort.Close();
     }
 }

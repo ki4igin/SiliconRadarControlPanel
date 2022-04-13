@@ -34,7 +34,7 @@
     <Style x:Key="ScrollBarThumbVertical"
            TargetType="Thumb">
         <Setter Property="OverridesDefaultStyle"
-                Value="True" />
+                Value="False" />
         <Setter Property="Width"
                 Value="4" />        
         <Setter Property="Template">

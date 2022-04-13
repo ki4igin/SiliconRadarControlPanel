@@ -58,6 +58,20 @@ public class MainViewModel : TitledViewModel
     );
 
     #endregion
+    
+    
+
+    #region Command SendCommand
+
+    private SimpleCommand? _sendCommand;
+    public SimpleCommand SendCommand => _sendCommand ??= new(
+        execute: () => _communication.SendCommand(RadarCommandValue),
+        canExecute: () => IsConnected && RadarCommandValue.Length == 4
+        );
+    
+
+
+    #endregion
 
     #region Command OpenDDSWindow
 
@@ -94,7 +108,10 @@ public class MainViewModel : TitledViewModel
     public double ProgressBarValue { get => _progressBarValue; set => Set(ref _progressBarValue, value); }
     #endregion
 
-
+    #region NotifyProperty <string> RadarCommandValue
+    private string _radarCommandValue;
+    public string RadarCommandValue { get => _radarCommandValue; set => Set(ref _radarCommandValue, value); }
+    #endregion
 
     #region SaveSettigns SaveSettigns
 
@@ -112,6 +129,7 @@ public class MainViewModel : TitledViewModel
         _communication = communication;
         _communication.IsConnectedChanged += () => IsConnected = _communication.IsConnected;
         _ddsViewModel = ddsViewModel;
-        _comPortSettings = options.Value;        
+        _comPortSettings = options.Value;
+        _radarCommandValue = string.Empty;
     }
 }

@@ -10,11 +10,8 @@
         Width="800"
         DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=MainViewModel}">
     <DockPanel>
-        <UniformGrid DockPanel.Dock="Top"
+        <UniformGrid DockPanel.Dock="Top" Rows="1"
                      HorizontalAlignment="Left">
-            <Button Content="Connect"
-                    Width="100"
-                    Command="{Binding Connect}" />
             <Button Width="100">
                 <Button.Style>
                     <Style TargetType="Button">
@@ -38,36 +35,42 @@
             <Button Content="Open DDS"
                     Width="100"
                     Command="{Binding OpenDDSWindow}" />
-            <Button Command="{Binding Save}" />
+            <Button Content="Save settings" Command="{Binding Save}" />
         </UniformGrid>
-        <Grid DockPanel.Dock="Right"
-              Width="100"
-              Height="100">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <TextBox Text="0" />
-            <RepeatButton Grid.Row="1"/>
-        </Grid>
-        <StatusBar DockPanel.Dock="Bottom">            
-            <StatusBarItem DockPanel.Dock="Right">
-                <DockPanel>
-                    <TextBlock DockPanel.Dock="Right" Text="{Binding ProgressBarValue, StringFormat=p0}" TextAlignment="Right" Width="40" />
-                    <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Width="120" Value="{Binding ProgressBarValue}">
-                    </ProgressBar>
-                </DockPanel>
-            </StatusBarItem>
-            <StatusBarItem>
-                <TextBlock x:Name="Status" Text="Hellowprldfadfadfasd"/>
-            </StatusBarItem>
-        </StatusBar>        
-        
-        <Canvas />
 
+        <Border DockPanel.Dock="Bottom" Background="Gainsboro">
+            <DockPanel Margin="5">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ProgressBarValue}" Value="1">
+                                    <Setter Property="Visibility" Value="Hidden"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ProgressBarValue}" Value="0">
+                                    <Setter Property="Visibility" Value="Hidden"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <ProgressBar DockPanel.Dock="Bottom" Height="20" Maximum="1" Width="120"
+                                 Value="{Binding ProgressBarValue}" />
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding ProgressBarValue, StringFormat=p0}"
+                               TextAlignment="Right" Width="40" />
+                </StackPanel>
+                <TextBlock x:Name="Status" Text="Hello" />
+            </DockPanel>
+        </Border>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <TextBox Text="{Binding RadarCommandValue, UpdateSourceTrigger=PropertyChanged}" Width="50"
+                     HorizontalAlignment="Left" Margin="3,3">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SendCommand}"></KeyBinding>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Content="Send" Command="{Binding SendCommand}" Width="50" Margin="3,3" />
+        </StackPanel>
+        <Canvas />
     </DockPanel>
 </Window>

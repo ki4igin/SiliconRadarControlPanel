@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
+using SiliconRadarControlPanel;
 
 namespace Serilog;
 
@@ -33,9 +35,14 @@ public class StatusSink : ILogEventSink
     public void Emit(LogEvent logEvent)
     {
         var message = logEvent.RenderMessage(_formatProvider);
-        if (Status is not null)
+
+        App.Current.Dispatcher.BeginInvoke(() =>
         {
-            Status.Text = message;
-        }
+            if (Status is not null)
+            {
+                Status.Text = message;
+            }
+        });
+
     }
 }

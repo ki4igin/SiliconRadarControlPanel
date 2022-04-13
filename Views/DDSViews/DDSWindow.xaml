@@ -3,14 +3,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:ddsviewmodels="clr-namespace:SiliconRadarControlPanel.ViewModels.DDSViewModels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:usercontrols="clr-namespace:SiliconRadarControlPanel.UserControls"
+    xmlns:usercontrols="clr-namespace:SiliconRadarControlPanel.UserControls"
     Title="DDSWindow"
-    Width="850"
+    Width="850" MaxWidth="1000" MinWidth="850"
     Height="600"
     DataContext="{Binding Source={StaticResource ViewModelLocator}, Path=DDSViewModel}"
-    ResizeMode="NoResize"
+    ResizeMode="CanResize"
     mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
@@ -24,7 +23,6 @@
                                 <ControlTemplate TargetType="Button">
                                     <GroupBox Header="500">
                                         <usercontrols:Grid32X2 >
-                                            
                                         </usercontrols:Grid32X2>
                                     </GroupBox>                                    
                                 </ControlTemplate>                            
@@ -46,7 +44,6 @@
             <ContentControl Margin="5,5,5,0" Content="{Binding DDSR5ViewModel}" />
             <ContentControl Margin="5,5,5,0" Content="{Binding DDSR6ViewModel}" />
             <ContentControl Margin="5,5,5,0" Content="{Binding DDSR7ViewModel}" />
-
         </StackPanel>
     </ScrollViewer>
 </Window>
